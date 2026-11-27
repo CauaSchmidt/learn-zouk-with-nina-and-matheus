@@ -40,6 +40,6 @@ npx serve .
 
 ## Antes de publicar no learnzouk.com
 
-- Trocar `<meta name="robots" content="noindex, nofollow">` para `index, follow` no `index.html`
+- (feito) o site já está liberado para o Google
 - Baixar as fotos do Imgur para dentro do projeto
 - Confirmar informações dos cursos, datas de 2027 e números (320+ alunos, 13+ países)
