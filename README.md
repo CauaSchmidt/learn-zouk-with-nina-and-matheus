@@ -55,3 +55,7 @@ npx serve .
 - Estatísticas de visitas: Cloudflare Web Analytics, ligado no projeto `learnzouk` (Workers & Pages → learnzouk → Metrics).
 - E-mail: registro DMARC `p=quarantine` contra e-mails falsos em nome do @learnzouk.com.
 - A cópia no GitHub Pages foi desligada; o endereço oficial é só o learnzouk.com.
+- Fotos: ficam em `img/` em WebP (480, 800 e 1280 px). As originais estão em `img/originais` e não precisam ser publicadas. Foto nova: gerar os 3 tamanhos e usar `srcset` como nas outras.
+- Fontes: em `fonts/` (Anybody e Newsreader), carregadas pelo `styles.css`. O site não usa mais o Google Fonts.
+- `_headers`: cabeçalhos de segurança (CSP) e cache. Se o pequeno script do `<head>` mudar, recalcular o hash sha256 que está lá.
+- Ao montar o zip para a Cloudflare no Windows, usar `tar -a -cf site.zip ...` (o Compress-Archive grava as pastas com barra invertida e quebra os caminhos).
