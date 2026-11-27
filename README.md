@@ -50,3 +50,8 @@ npx serve .
 - Domínio registrado na Spaceship (conta da Nina). DNS e encaminhamento de e-mail na Cloudflare dela: tudo que chega em @learnzouk.com vai para ninaandmatheus@gmail.com.
 - Para publicar uma mudança: na Cloudflare, Workers & Pages → learnzouk → Create deployment, e enviar os arquivos `index.html`, `styles.css`, `main.js`, `data.js`, `i18n.js` e `sw.js` (lembrando de trocar o `?v=`).
 - O `sw.js` desinstala o service worker do site antigo nos navegadores de quem já visitou. Não apagar.
+- `_redirects`: leva os endereços do site antigo (`/about`, `/performances`, `/contact`, `/courses`, `/school`) para as seções certas. `404.html` é a página de "não encontrado".
+- `school.learnzouk.com` redireciona para os cursos no Lab (regra de redirecionamento na Cloudflare).
+- Estatísticas de visitas: Cloudflare Web Analytics, ligado no projeto `learnzouk` (Workers & Pages → learnzouk → Metrics).
+- E-mail: registro DMARC `p=quarantine` contra e-mails falsos em nome do @learnzouk.com.
+- A cópia no GitHub Pages foi desligada; o endereço oficial é só o learnzouk.com.
