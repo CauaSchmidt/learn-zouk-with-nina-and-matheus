@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found | Learn Zouk with Nina &amp; Matheus</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#121a16">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23121a16'/%3E%3Cellipse cx='32' cy='32' rx='24' ry='11' transform='rotate(-26 32 32)' fill='none' stroke='%23e6d6c8' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #121a16; --fg: #eef1e6; --muted: #a3b0a0; --accent: #e6d6c8; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; display: grid; place-items: center; padding: 32px 16px;
+      background: radial-gradient(60% 60% at 70% 30%, rgba(47, 122, 88, .28), transparent 70%), var(--bg);
+      color: var(--fg); font-family: "Newsreader", Georgia, serif; font-size: 19px; line-height: 1.6; text-align: center;
+      overflow: hidden;
+    }
+    main { position: relative; max-width: 40rem; }
+    .giant {
+      display: block; margin: 0 0 8px; font-family: "Anybody", "Arial Narrow", sans-serif; font-weight: 800;
+      font-size: clamp(96px, 26vw, 300px); line-height: .8; letter-spacing: -.04em; color: var(--accent);
+      font-stretch: 150%; animation: stretch 1.8s cubic-bezier(.22, .8, .2, 1) both;
+    }
+    @keyframes stretch { from { font-stretch: 50%; opacity: 0; } 30% { opacity: 1; } }
+    h1 { margin: 0 0 12px; font-family: "Anybody", sans-serif; font-weight: 650; font-stretch: 112%; font-size: clamp(28px, 4vw, 42px); line-height: 1.05; letter-spacing: -.02em; }
+    p { margin: 0 0 6px; color: var(--muted); }
+    .langs { font-style: italic; font-size: 17px; }
+    a.btn {
+      display: inline-flex; align-items: center; min-height: 52px; margin-top: 28px; padding: 0 26px; border-radius: 999px;
+      background: var(--accent); color: var(--bg); text-decoration: none;
+      font: 600 16px/1 "Anybody", sans-serif; font-stretch: 112%; transition: transform .4s cubic-bezier(.22, .8, .2, 1);
+    }
+    a.btn:hover { transform: translateY(-2px); }
+    a.btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
+    @media (prefers-reduced-motion: reduce) { .giant { animation: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <span class="giant" aria-hidden="true">404</span>
+    <h1>This page took a wrong step.</h1>
+    <p>The page you're looking for isn't here anymore.</p>
+    <p class="langs">Esta página não existe mais.</p>
+    <p class="langs">Esta página ya no existe.</p>
+    <a class="btn" href="/">Back to learnzouk.com</a>
+  </main>
+</body>
+</html>

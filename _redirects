@@ -1,0 +1,6 @@
+# Endereços do site antigo -> seções do site novo (Cloudflare Pages)
+/about          /#about           301
+/performances   /#watch           301
+/contact        /#contact         301
+/courses        /#courses         301
+/school         https://lab.dance/n&m   301
