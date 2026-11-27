@@ -43,3 +43,10 @@ npx serve .
 - (feito) o site já está liberado para o Google
 - Baixar as fotos do Imgur para dentro do projeto
 - Confirmar informações dos cursos, datas de 2027 e números (320+ alunos, 13+ países)
+
+## Onde o site está publicado
+
+- **learnzouk.com** e **www.learnzouk.com**: Cloudflare Pages, projeto `learnzouk`, na conta Cloudflare da Nina (envio direto dos arquivos).
+- Domínio registrado na Spaceship (conta da Nina). DNS e encaminhamento de e-mail na Cloudflare dela: tudo que chega em @learnzouk.com vai para ninaandmatheus@gmail.com.
+- Para publicar uma mudança: na Cloudflare, Workers & Pages → learnzouk → Create deployment, e enviar os arquivos `index.html`, `styles.css`, `main.js`, `data.js`, `i18n.js` e `sw.js` (lembrando de trocar o `?v=`).
+- O `sw.js` desinstala o service worker do site antigo nos navegadores de quem já visitou. Não apagar.
