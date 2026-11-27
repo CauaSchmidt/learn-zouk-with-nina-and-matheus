@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Learn Zouk with Nina &amp; Matheus | Brazilian Zouk &amp; Lambada</title>
-  <meta name="description" content="Learn Brazilian Zouk and Lambada with Nina & Matheus: teachers, performers and choreographers from Campinas, Brazil. Private lessons, workshops, performances and online courses.">
+  <meta name="description" content="Learn Brazilian Zouk and Lambada with Nina & Matheus: teachers, performers and choreographers from Campinas, Brazil. Private lessons, workshops, online courses and mentoring.">
   <link rel="canonical" href="https://learnzouk.com/">
   <!-- PRÉVIA: trocar para "index, follow" quando o site for publicado no learnzouk.com -->
   <meta name="robots" content="noindex, nofollow">
@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://learnzouk.com/">
   <meta property="og:title" content="Learn Zouk with Nina & Matheus">
-  <meta property="og:description" content="Brazilian Zouk and Lambada classes, private lessons, workshops and performances with Nina & Matheus.">
+  <meta property="og:description" content="Brazilian Zouk and Lambada classes, private lessons, workshops, online courses and mentoring with Nina & Matheus.">
   <meta property="og:image" content="https://i.imgur.com/iJsMbpg.jpeg">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -34,19 +34,30 @@
   </script>
 </head>
 <body data-tone="night">
-  <a class="skip-link" href="#main">Skip to content</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-prev" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
   <header class="site-header" id="header">
     <div class="wrap header-inner">
       <a class="brand" href="#top">Nina &amp; Matheus</a>
       <nav class="nav" aria-label="Main">
-        <a href="#learn">Classes</a>
-        <a href="#about">About</a>
-        <a href="#schedule">Schedule</a>
-        <a href="#watch">Watch</a>
-        <a href="#contact">Contact</a>
+        <a href="#learn" data-i18n="nav.learn">Learn</a>
+        <a href="#courses" data-i18n="nav.courses">Courses</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#calendar" data-i18n="nav.calendar">Calendar</a>
+        <a href="#watch" data-i18n="nav.watch">Watch</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
-      <a class="btn btn-sm header-cta" href="https://tidycal.com/learnzouk/workshop-private" target="_blank" rel="noopener">Book a private lesson</a>
+      <div class="lang header-lang" role="group" aria-label="Language" data-i18n-attr="aria-label:lang.label">
+        <button type="button" data-lang="en" aria-pressed="true" title="English">EN</button>
+        <button type="button" data-lang="pt" aria-pressed="false" title="Português">PT</button>
+        <button type="button" data-lang="es" aria-pressed="false" title="Español">ES</button>
+      </div>
+      <a class="btn btn-sm header-cta" href="https://tidycal.com/learnzouk/workshop-private" target="_blank" rel="noopener" data-i18n="cta.private">Book a private lesson</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
         <span class="menu-toggle-label">Menu</span>
         <span class="menu-toggle-bars" aria-hidden="true"><i></i><i></i></span>
@@ -56,15 +67,21 @@
 
   <div class="menu" id="menu" aria-hidden="true" inert>
     <nav class="menu-links" aria-label="Mobile">
-      <a href="#learn" style="--i:0">Classes</a>
-      <a href="#about" style="--i:1">About</a>
-      <a href="#schedule" style="--i:2">Schedule</a>
-      <a href="#watch" style="--i:3">Watch</a>
-      <a href="#contact" style="--i:4">Contact</a>
+      <a href="#learn" style="--i:0" data-i18n="nav.learn">Learn</a>
+      <a href="#courses" style="--i:1" data-i18n="nav.courses">Courses</a>
+      <a href="#about" style="--i:2" data-i18n="nav.about">About</a>
+      <a href="#calendar" style="--i:3" data-i18n="nav.calendar">Calendar</a>
+      <a href="#watch" style="--i:4" data-i18n="nav.watch">Watch</a>
+      <a href="#contact" style="--i:5" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="menu-foot">
-      <a class="btn" href="https://tidycal.com/learnzouk/workshop-private" target="_blank" rel="noopener">Book a private lesson</a>
-      <a class="text-link" href="https://www.instagram.com/ninaandmatheus" target="_blank" rel="noopener">@ninaandmatheus on Instagram</a>
+      <div class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:lang.label">
+        <button type="button" data-lang="en" aria-pressed="true" title="English">EN</button>
+        <button type="button" data-lang="pt" aria-pressed="false" title="Português">PT</button>
+        <button type="button" data-lang="es" aria-pressed="false" title="Español">ES</button>
+      </div>
+      <a class="btn" href="https://tidycal.com/learnzouk/workshop-private" target="_blank" rel="noopener" data-i18n="cta.private">Book a private lesson</a>
+      <a class="text-link" href="https://www.instagram.com/ninaandmatheus" target="_blank" rel="noopener" data-i18n="menu.ig">@ninaandmatheus on Instagram</a>
     </div>
   </div>
 
@@ -73,11 +90,11 @@
     <section class="hero" id="top" data-tone="night">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <h1 class="hero-title">Learn Brazilian Zouk and Lambada with Nina&nbsp;&amp;&nbsp;Matheus</h1>
-          <p class="hero-lead">Teachers, performers and choreographers from Campinas, Brazil. We teach on festival stages around the world, and in private lessons wherever the tour takes us.</p>
+          <h1 class="hero-title" data-i18n="hero.title">Learn Brazilian Zouk and Lambada with Nina&nbsp;&amp;&nbsp;Matheus</h1>
+          <p class="hero-lead" data-i18n="hero.lead">Teachers, performers and choreographers from Campinas, Brazil. We teach on festival stages around the world, and in private lessons wherever the tour takes us.</p>
           <div class="actions">
-            <a class="btn" href="#learn">See ways to learn</a>
-            <a class="btn btn-ghost" href="https://tidycal.com/learnzouk/workshop-private" target="_blank" rel="noopener">Book a private lesson</a>
+            <a class="btn" href="#learn" data-i18n="hero.cta">See ways to learn</a>
+            <a class="btn btn-ghost" href="https://tidycal.com/learnzouk/workshop-private" target="_blank" rel="noopener" data-i18n="cta.private">Book a private lesson</a>
           </div>
         </div>
 
@@ -101,8 +118,8 @@
     </section>
 
     <!-- STAGES TICKER -->
-    <section class="stages" data-tone="night" aria-label="Stages we've taught on">
-      <p class="stages-label">Stages we've taught on</p>
+    <section class="stages" data-tone="night" aria-label="Stages we've taught on" data-i18n-attr="aria-label:stages.label">
+      <p class="stages-label" data-i18n="stages.label">Stages we've taught on</p>
       <div class="ticker"><ul class="ticker-track" id="ticker"></ul></div>
     </section>
 
@@ -111,24 +128,24 @@
       <div class="wrap learn-grid">
         <div class="learn-main">
           <header class="section-head">
-            <h2>Three ways to dance with us</h2>
-            <p>Train with us when we're in your city, bring us to your festival, or learn online from home.</p>
+            <h2 data-i18n="learn.title">Three ways to dance with us</h2>
+            <p data-i18n="learn.lead">Train with us when we're in your city, bring us to your festival, or learn online from home.</p>
           </header>
 
           <div class="offers" id="offers">
             <article class="offer is-open" data-media="0">
               <h3 class="offer-heading">
                 <button class="offer-toggle" type="button" id="offer-private-btn" aria-expanded="true" aria-controls="offer-private">
-                  <span class="offer-title">Private lessons</span>
-                  <span class="offer-note">when we're in your city</span>
+                  <span class="offer-title" data-i18n="offer.private.title">Private lessons</span>
+                  <span class="offer-note" data-i18n="offer.private.note">when we're in your city</span>
                   <span class="offer-icon" aria-hidden="true"></span>
                 </button>
               </h3>
               <div class="offer-panel" id="offer-private" role="region" aria-labelledby="offer-private-btn">
                 <div class="offer-inner"><div class="offer-content">
                   <img class="offer-img" src="https://i.imgur.com/5BvLGM8.jpeg" alt="" loading="lazy" decoding="async" width="1280" height="855">
-                  <p>One-on-one or couple coaching on technique, connection, musicality and styling. Book a slot during our workshop weekends.</p>
-                  <a class="btn" href="https://tidycal.com/learnzouk/workshop-private" target="_blank" rel="noopener">Book a private lesson</a>
+                  <p data-i18n="offer.private.text">One-on-one or couple coaching on technique, connection, musicality and styling. Book a slot during our workshop weekends.</p>
+                  <a class="btn" href="https://tidycal.com/learnzouk/workshop-private" target="_blank" rel="noopener" data-i18n="cta.private">Book a private lesson</a>
                 </div></div>
               </div>
             </article>
@@ -136,16 +153,16 @@
             <article class="offer" data-media="1">
               <h3 class="offer-heading">
                 <button class="offer-toggle" type="button" id="offer-events-btn" aria-expanded="false" aria-controls="offer-events">
-                  <span class="offer-title">Workshops &amp; festivals</span>
-                  <span class="offer-note">for studios and organizers</span>
+                  <span class="offer-title" data-i18n="offer.events.title">Workshops &amp; festivals</span>
+                  <span class="offer-note" data-i18n="offer.events.note">for studios and organizers</span>
                   <span class="offer-icon" aria-hidden="true"></span>
                 </button>
               </h3>
               <div class="offer-panel" id="offer-events" role="region" aria-labelledby="offer-events-btn">
                 <div class="offer-inner"><div class="offer-content">
                   <img class="offer-img" src="https://i.imgur.com/0MvL2Ys.jpeg" alt="" loading="lazy" decoding="async" width="1280" height="855">
-                  <p>Classes for all levels, Leads &amp; Follows styling, performance training, shows and DJ sets. Tell us about your event and we'll plan the program together.</p>
-                  <a class="btn" data-wa="Hi Nina & Matheus! I'd like to invite you to teach at our studio/event.">Invite us to your event</a>
+                  <p data-i18n="offer.events.text">Classes for all levels, Leads &amp; Follows styling, performance training, shows and DJ sets. Tell us about your event and we'll plan the program together.</p>
+                  <a class="btn" data-wa="wa.invite" data-i18n="cta.invite">Invite us to your event</a>
                 </div></div>
               </div>
             </article>
@@ -153,16 +170,16 @@
             <article class="offer" data-media="2">
               <h3 class="offer-heading">
                 <button class="offer-toggle" type="button" id="offer-online-btn" aria-expanded="false" aria-controls="offer-online">
-                  <span class="offer-title">Online Zouk School</span>
-                  <span class="offer-note">coming soon</span>
+                  <span class="offer-title" data-i18n="offer.online.title">Courses &amp; mentoring</span>
+                  <span class="offer-note" data-i18n="offer.online.note">online, all year round</span>
                   <span class="offer-icon" aria-hidden="true"></span>
                 </button>
               </h3>
               <div class="offer-panel" id="offer-online" role="region" aria-labelledby="offer-online-btn">
                 <div class="offer-inner"><div class="offer-content">
                   <img class="offer-img" src="https://i.imgur.com/EBSkoAU.jpeg" alt="" loading="lazy" decoding="async" width="1280" height="855">
-                  <p>Step-by-step Zouk and Lambada lessons to follow from anywhere, at your own pace. Message us and we'll tell you when it opens.</p>
-                  <a class="btn" data-wa="Hi Nina & Matheus! I'd like to know when the online Zouk courses open.">Get notified on WhatsApp</a>
+                  <p data-i18n="offer.online.text">Learn at home with our online courses, or join Nina's Choreo Journey for six months of choreography, feedback and community.</p>
+                  <a class="btn" href="#courses" data-i18n="offer.online.cta">See courses &amp; mentoring</a>
                 </div></div>
               </div>
             </article>
@@ -177,40 +194,71 @@
       </div>
     </section>
 
+    <!-- COURSES & MENTORING -->
+    <section class="section courses" id="courses" data-tone="night">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 data-i18n="courses.title">Courses &amp; mentoring</h2>
+          <p data-i18n="courses.lead">Keep training between festivals. Start with the foundations, learn full choreographies, or follow a six-month journey with personal feedback.</p>
+        </header>
+
+        <div class="courses-grid">
+          <div class="products-col">
+            <ol class="products" id="products"></ol>
+            <a class="text-link products-all" href="https://lab.dance/n&amp;m" target="_blank" rel="noopener" data-i18n="courses.all">All courses on Lab</a>
+          </div>
+
+          <aside class="mentor">
+            <div class="mentor-photo"><img src="https://i.imgur.com/IZUyvY2.jpeg" alt="" loading="lazy" decoding="async" width="1280" height="855"></div>
+            <p class="mentor-label" data-i18n="mentor.label">Mentoring with Nina</p>
+            <h3 class="mentor-title">Choreo Journey</h3>
+            <p class="mentor-text" data-i18n="mentor.text">Six months of new choreographies in Zouk and Lambada, with dedicated feedback from Nina and a community of dancers learning together.</p>
+            <ul class="mentor-facts">
+              <li data-i18n="mentor.f1">6 months</li>
+              <li data-i18n="mentor.f2">Dedicated feedback</li>
+              <li data-i18n="mentor.f3">Community</li>
+              <li data-i18n="mentor.f4">For leaders and followers</li>
+            </ul>
+            <a class="mentor-cta" id="mentor-cta" data-wa="wa.journey" data-i18n="mentor.cta">Ask about the next edition</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
     <!-- ABOUT -->
     <section class="section about" id="about" data-tone="sand">
       <div class="wrap about-top">
-        <h2 class="statement">Partners on stage since 2018, and in the studios of Campinas long before that.</h2>
+        <h2 class="statement" data-i18n="about.title">Partners on stage since 2018, and in the studios of Campinas long before that.</h2>
         <figure class="about-photo unveil">
           <img src="https://i.imgur.com/d7YjFnt.jpeg" alt="Nina and Matheus dancing in the studio" loading="lazy" decoding="async" width="1280" height="855">
         </figure>
         <div class="about-text">
-          <p>Their dance spans Zouk, Lambada and Forró, built on years of Classical and Contemporary Ballet, Jazz and Hip-Hop. That mix shapes the way they teach.</p>
-          <p>At home they direct Barracão da Dança, a community of more than 320 students in Campinas.</p>
+          <p data-i18n="about.p1">Their dance spans Zouk, Lambada and Forró, built on years of Classical and Contemporary Ballet, Jazz and Hip-Hop. That mix shapes the way they teach.</p>
+          <p data-i18n="about.p2">At home they direct Barracão da Dança, a community of more than 320 students in Campinas.</p>
         </div>
       </div>
 
       <div class="wrap duo">
         <article class="person">
           <div class="person-photo unveil">
-            <img src="https://i.imgur.com/c1uDcqL.jpeg" alt="Portrait of Nina Darbello" loading="lazy" decoding="async" width="853" height="1280">
+            <img src="https://i.imgur.com/c1uDcqL.jpeg" alt="Nina Darbello" loading="lazy" decoding="async" width="853" height="1280">
           </div>
           <h3>Nina Darbello</h3>
-          <p class="person-role">Teacher, performer and actress</p>
-          <p>Born in 1998, Nina started with Classical Ballet at age 5 and now specializes in Zouk, Lambada, High Heels and Lady Style, with a young and creative approach to dancing and teaching.</p>
-          <p>Known for her musicality, autonomy and expressiveness, she co-directs Barracão da Dança and holds many national and international titles.</p>
-          <a class="text-link" href="https://www.instagram.com/ninadarbello" target="_blank" rel="noopener">@ninadarbello on Instagram</a>
+          <p class="person-role" data-i18n="nina.role">Teacher, performer and actress</p>
+          <p data-i18n="nina.p1">Born in 1998, Nina started with Classical Ballet at age 5 and now specializes in Zouk, Lambada, High Heels and Lady Style, with a young and creative approach to dancing and teaching.</p>
+          <p data-i18n="nina.p2">Known for her musicality, autonomy and expressiveness, she co-directs Barracão da Dança and holds many national and international titles.</p>
+          <a class="text-link" href="https://www.instagram.com/ninadarbello" target="_blank" rel="noopener" data-i18n="nina.ig">@ninadarbello on Instagram</a>
         </article>
 
         <article class="person person--offset">
           <div class="person-photo unveil">
-            <img src="https://i.imgur.com/WI4qc4o.jpeg" alt="Portrait of Matheus Franco" loading="lazy" decoding="async" width="853" height="1280">
+            <img src="https://i.imgur.com/WI4qc4o.jpeg" alt="Matheus Franco" loading="lazy" decoding="async" width="853" height="1280">
           </div>
           <h3>Matheus Franco</h3>
-          <p class="person-role">Teacher, performer and co-director of Barracão da Dança</p>
-          <p>Born in 1990, Matheus found his passion for dance at 13 and started training at 20, through Classical and Contemporary Ballet, Hip-Hop and Jazz, before finding his calling in Brazilian Zouk.</p>
-          <p>Today he teaches alongside Nina at the biggest Zouk and Lambada congresses in the world.</p>
-          <a class="text-link" href="https://www.instagram.com/thsfranco" target="_blank" rel="noopener">@thsfranco on Instagram</a>
+          <p class="person-role" data-i18n="matheus.role">Teacher, performer and co-director of Barracão da Dança</p>
+          <p data-i18n="matheus.p1">Born in 1990, Matheus found his passion for dance at 13 and started training at 20, through Classical and Contemporary Ballet, Hip-Hop and Jazz, before finding his calling in Brazilian Zouk.</p>
+          <p data-i18n="matheus.p2">Today he teaches alongside Nina at the biggest Zouk and Lambada congresses in the world.</p>
+          <a class="text-link" href="https://www.instagram.com/thsfranco" target="_blank" rel="noopener" data-i18n="matheus.ig">@thsfranco on Instagram</a>
         </article>
       </div>
     </section>
@@ -219,93 +267,86 @@
     <section class="section work" id="work" data-tone="moss">
       <div class="wrap">
         <header class="section-head">
-          <h2>In the studio, on stage, behind the decks and at the judges' table</h2>
+          <h2 data-i18n="work.title">In the studio, on stage, behind the decks and at the judges' table</h2>
         </header>
         <ul class="panels" id="panels">
           <li class="panel is-active" tabindex="0">
             <img src="https://i.imgur.com/0YFIBnc.jpeg" alt="" loading="lazy" decoding="async">
-            <span class="panel-label" aria-hidden="true">Classes</span>
-            <div class="panel-body"><h3>Classes</h3><p>Brazilian Zouk for all levels, Lady &amp; Man Style and performance training.</p></div>
+            <span class="panel-label" aria-hidden="true" data-i18n="work.classes">Classes</span>
+            <div class="panel-body"><h3 data-i18n="work.classes">Classes</h3><p data-i18n="work.classes.text">Brazilian Zouk for all levels, Lady &amp; Man Style and performance training.</p></div>
           </li>
           <li class="panel" tabindex="0">
             <img src="https://i.imgur.com/BYt8dL1.jpeg" alt="" loading="lazy" decoding="async">
-            <span class="panel-label" aria-hidden="true">Performances</span>
-            <div class="panel-body"><h3>Performances</h3><p>Traditional Zouk, Lambada and lyrical choreographies, weddings included.</p></div>
+            <span class="panel-label" aria-hidden="true" data-i18n="work.shows">Performances</span>
+            <div class="panel-body"><h3 data-i18n="work.shows">Performances</h3><p data-i18n="work.shows.text">Traditional Zouk, Lambada and lyrical choreographies, weddings included.</p></div>
           </li>
           <li class="panel" tabindex="0">
             <img src="https://i.imgur.com/dKryOWZ.jpeg" alt="" loading="lazy" decoding="async">
-            <span class="panel-label" aria-hidden="true">DJ sets</span>
-            <div class="panel-body"><h3>DJ sets</h3><p>Curated Zouk sets and live mixing for international events.</p></div>
+            <span class="panel-label" aria-hidden="true" data-i18n="work.dj">DJ sets</span>
+            <div class="panel-body"><h3 data-i18n="work.dj">DJ sets</h3><p data-i18n="work.dj.text">Curated Zouk sets and live mixing for international events.</p></div>
           </li>
           <li class="panel" tabindex="0">
             <img src="https://i.imgur.com/pRYoUFy.jpeg" alt="" loading="lazy" decoding="async">
-            <span class="panel-label" aria-hidden="true">Judging</span>
-            <div class="panel-body"><h3>Judging</h3><p>Official BZDC judges, and competition champions themselves.</p></div>
+            <span class="panel-label" aria-hidden="true" data-i18n="work.judging">Judging</span>
+            <div class="panel-body"><h3 data-i18n="work.judging">Judging</h3><p data-i18n="work.judging.text">Official BZDC judges, and competition champions themselves.</p></div>
           </li>
         </ul>
       </div>
     </section>
 
-    <!-- SCHEDULE -->
-    <section class="section schedule" id="schedule" data-tone="pistachio">
+    <!-- CALENDAR -->
+    <section class="section calendar" id="calendar" data-tone="pistachio">
       <div class="wrap">
-        <header class="schedule-head">
-          <h2>Where we're teaching next</h2>
-          <div class="filters" role="group" aria-label="Show events by teacher">
-            <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
-            <button class="filter" type="button" data-filter="both" aria-pressed="false">Nina &amp; Matheus</button>
-            <button class="filter" type="button" data-filter="nina" aria-pressed="false">Nina</button>
-            <button class="filter" type="button" data-filter="matheus" aria-pressed="false">Matheus</button>
+        <header class="cal-head">
+          <div class="section-head">
+            <h2 data-i18n="cal.title">Tour calendar</h2>
+            <p data-i18n="cal.lead">Almost every weekend we're teaching at a festival or a studio somewhere in the world. Open weekends can be booked for your event.</p>
           </div>
+          <a class="btn" data-wa="wa.invite" data-i18n="cta.invite">Invite us to your event</a>
         </header>
 
-        <ol class="tour" id="event-list"></ol>
+        <p class="next-stop" id="next-stop" hidden></p>
 
-        <div class="tour-empty" id="event-empty" hidden>
-          <div class="tour-empty-copy">
-            <p class="tour-empty-title">The next tour is being booked.</p>
-            <p>New dates are announced first on Instagram. Running a studio or a festival? Invite us and we'll plan the program together.</p>
-            <div class="actions">
-              <a class="btn" data-wa="Hi Nina & Matheus! I'd like to invite you to teach at our studio/event.">Invite us to your event</a>
-              <a class="btn btn-ghost" href="https://www.instagram.com/ninaandmatheus" target="_blank" rel="noopener">Follow @ninaandmatheus</a>
-            </div>
-          </div>
-          <div class="tour-empty-photo unveil">
-            <img src="https://i.imgur.com/GLIf1mo.jpeg" alt="" loading="lazy" decoding="async" width="854" height="1280">
+        <div class="cal-controls">
+          <div class="cal-index" id="cal-index" role="group" aria-label="Months"></div>
+          <div class="cal-arrows">
+            <button class="cal-arrow" type="button" data-dir="-1" aria-label="Previous month" data-i18n-attr="aria-label:cal.prev"><svg class="icon"><use href="#i-prev"/></svg></button>
+            <button class="cal-arrow" type="button" data-dir="1" aria-label="Next month" data-i18n-attr="aria-label:cal.next"><svg class="icon"><use href="#i-next"/></svg></button>
           </div>
         </div>
       </div>
+      <div class="months" id="months" tabindex="0" role="region" aria-label="Tour calendar" data-i18n-attr="aria-label:cal.title"></div>
     </section>
 
     <!-- WATCH -->
     <section class="section watch" id="watch" data-tone="night">
       <div class="wrap">
         <header class="section-head">
-          <h2>Watch us dance</h2>
-          <p>Demos and choreographies from festivals in France, the Netherlands and the Czech Republic.</p>
+          <h2 data-i18n="watch.title">Watch us dance</h2>
+          <p data-i18n="watch.lead">Demos and choreographies from festivals in France, the Netherlands and the Czech Republic.</p>
         </header>
         <div class="watch-grid">
           <div class="player" id="player"></div>
           <ol class="playlist" id="playlist" aria-label="Videos"></ol>
         </div>
-        <a class="btn btn-ghost" href="https://www.youtube.com/channel/UCXe6U9JXZSR_pXQboFrRehA" target="_blank" rel="noopener">More videos on YouTube</a>
+        <a class="btn btn-ghost" href="https://www.youtube.com/channel/UCXe6U9JXZSR_pXQboFrRehA" target="_blank" rel="noopener" data-i18n="watch.more">More videos on YouTube</a>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section class="section contact" id="contact" data-tone="jade">
       <div class="wrap">
-        <h2 class="contact-title" data-fit><span>Let's</span> <span>dance</span></h2>
+        <h2 class="contact-title" data-fit data-i18n="contact.title"><span>Let's</span> <span>dance</span></h2>
         <div class="contact-grid">
-          <p class="contact-lead">Questions about classes, private lessons or bringing us to your event? Send a message and we'll reply.</p>
+          <p class="contact-lead" data-i18n="contact.lead">Questions about classes, private lessons or bringing us to your event? Send a message and we'll reply.</p>
           <div class="actions">
-            <a class="btn" data-wa="Hi Nina & Matheus!">Message us on WhatsApp</a>
-            <a class="btn btn-ghost" href="mailto:ninaandmatheus@gmail.com">Send an email</a>
+            <a class="btn" data-wa="wa.hello" data-i18n="contact.wa">Message us on WhatsApp</a>
+            <a class="btn btn-ghost" href="mailto:ninaandmatheus@gmail.com" data-i18n="contact.email">Send an email</a>
           </div>
         </div>
         <dl class="contact-details">
-          <div><dt>WhatsApp</dt><dd><a data-wa="Hi Nina & Matheus!">+55 19 99295-5198</a></dd></div>
-          <div><dt>Email</dt><dd><a href="mailto:ninaandmatheus@gmail.com">ninaandmatheus@gmail.com</a></dd></div>
+          <div><dt>WhatsApp</dt><dd><a data-wa="wa.hello">+55 19 99295-5198</a></dd></div>
+          <div><dt data-i18n="contact.emailLabel">Email</dt><dd><a href="mailto:ninaandmatheus@gmail.com">ninaandmatheus@gmail.com</a></dd></div>
           <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/ninaandmatheus" target="_blank" rel="noopener">@ninaandmatheus</a></dd></div>
         </dl>
       </div>
@@ -317,24 +358,27 @@
       <p class="footer-brand">Nina &amp; Matheus</p>
       <div class="footer-cols">
         <nav aria-label="Footer">
-          <a href="#learn">Classes</a>
-          <a href="#about">About</a>
-          <a href="#schedule">Schedule</a>
-          <a href="#watch">Watch</a>
-          <a href="#contact">Contact</a>
+          <a href="#learn" data-i18n="nav.learn">Learn</a>
+          <a href="#courses" data-i18n="nav.courses">Courses</a>
+          <a href="#about" data-i18n="nav.about">About</a>
+          <a href="#calendar" data-i18n="nav.calendar">Calendar</a>
+          <a href="#watch" data-i18n="nav.watch">Watch</a>
+          <a href="#contact" data-i18n="nav.contact">Contact</a>
         </nav>
         <ul>
           <li><a href="https://www.instagram.com/ninaandmatheus" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="https://www.instagram.com/ninadarbello" target="_blank" rel="noopener">Nina</a></li>
           <li><a href="https://www.instagram.com/thsfranco" target="_blank" rel="noopener">Matheus</a></li>
           <li><a href="https://www.youtube.com/channel/UCXe6U9JXZSR_pXQboFrRehA" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="https://lab.dance/n&amp;m" target="_blank" rel="noopener">Lab</a></li>
         </ul>
       </div>
-      <p class="footer-legal">© <span data-year></span> Nina &amp; Matheus. Campinas, Brazil.</p>
+      <p class="footer-legal">© <span data-year></span> Nina &amp; Matheus. <span data-i18n="footer.city">Campinas, Brazil.</span></p>
     </div>
   </footer>
 
   <script src="data.js"></script>
+  <script src="i18n.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
