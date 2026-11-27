@@ -42,7 +42,7 @@ npx serve .
 
 - (feito) o site já está liberado para o Google
 - Baixar as fotos do Imgur para dentro do projeto
-- Confirmar informações dos cursos, datas de 2027 e números (320+ alunos, 13+ países)
+- Preencher o calendário de 2027 (com site e Instagram de cada evento) e trocar fotos e vídeos
 
 ## Onde o site está publicado
 

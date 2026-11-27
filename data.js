@@ -9,9 +9,12 @@
   Eventos (agenda):
     - startDate / endDate no formato "AAAA-MM-DD"
     - instructor: "both" (os dois), "nina" ou "matheus"
-    - isLocation: true  = workshop numa cidade (mostra botão de aula particular)
+    - location: "Cidade, País" (ex.: "Denver, USA")
+    - isLocation: true  = workshop numa cidade (mostra botão de aula particular pelo WhatsApp)
                   false = festival/congresso (entra também na faixa de palcos)
     - link: site do evento (opcional)
+    - instagram: Instagram do evento (opcional)
+    Se tiver link ou instagram, aparece o botão "View more" com os dois.
   Cada fim de semana do calendário mostra os eventos daquele fim de semana.
   Fim de semana sem evento aparece como "livre", com botão para convidar.
 */
@@ -24,7 +27,6 @@ window.SITE = {
   },
 
   links: {
-    tidycal: "https://tidycal.com/learnzouk/workshop-private",
     lab: "https://lab.dance/n&m",
     youtube: "https://www.youtube.com/channel/UCXe6U9JXZSR_pXQboFrRehA",
     instagram: "https://www.instagram.com/ninaandmatheus",

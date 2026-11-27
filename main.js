@@ -277,14 +277,23 @@
   var nextStopEl = $("#next-stop");
 
   function eventHtml(e) {
-    var link = "";
-    if (e.link) link = '<a class="wk-link" href="' + esc(e.link) + '" target="_blank" rel="noopener">' + esc(t("cal.eventInfo")) + "</a>";
-    else if (e.isLocation) link = '<a class="wk-link" href="' + esc(S.links.tidycal) + '" target="_blank" rel="noopener">' + esc(t("cal.bookPrivate")) + "</a>";
+    var range = rangeLabel(parse(e.startDate), parse(e.endDate));
+    var links = "";
+    if (e.link) links += '<a href="' + esc(e.link) + '" target="_blank" rel="noopener">' + esc(t("cal.site")) + "</a>";
+    if (e.instagram) links += '<a href="' + esc(e.instagram) + '" target="_blank" rel="noopener">' + esc(t("cal.instagram")) + "</a>";
+    var more = links
+      ? '<details class="wk-more"><summary>' + esc(t("cal.more")) + '</summary><div class="wk-more-links">' + links + "</div></details>"
+      : "";
+    var past = parse(e.endDate) < today;
+    var where = e.name + (e.location ? " (" + e.location + ")" : "");
+    var privateLink = past ? "" :
+      '<a class="wk-private" href="' + esc(waLink(t("wa.privateAt", { event: where, date: range + (lang === "en" ? ", " : " ") + parse(e.endDate).getFullYear() }))) + '" target="_blank" rel="noopener">' + esc(t("cal.bookPrivate")) + "</a>";
     return '<div class="wk-event">' +
       '<p class="wk-name">' + esc(e.name) + "</p>" +
       (e.location ? '<p class="wk-place">' + esc(e.location) + "</p>" : "") +
       '<p class="wk-meta"><span class="wk-who">' + esc(t("who." + e.instructor)) + "</span>" +
-      '<span class="wk-range">' + rangeLabel(parse(e.startDate), parse(e.endDate)) + "</span>" + link + "</p>" +
+      '<span class="wk-range">' + range + "</span></p>" +
+      (privateLink || more ? '<div class="wk-actions">' + privateLink + more + "</div>" : "") +
       "</div>";
   }
 

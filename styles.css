@@ -463,6 +463,35 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
 .wk-who { padding: 2px 9px; border-radius: 999px; background: color-mix(in srgb, currentColor 14%, transparent); font-family: var(--font-display); font-weight: 550; }
 .wk-range { font-style: italic; opacity: .75; }
 .wk-link { font-family: var(--font-display); font-weight: 600; text-underline-offset: 3px; }
+.wk-actions { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 14px; margin-top: 12px; }
+.wk-private {
+  display: inline-flex; align-items: center; min-height: 30px; padding: 0 12px; border-radius: 999px;
+  background: var(--btn-fg); color: var(--btn-bg);
+  font-family: var(--font-display); font-weight: 600; font-size: 13px; text-decoration: none;
+  transition: transform .3s var(--ease);
+}
+.wk-private:hover { transform: translateY(-1px); }
+.wk-more { padding-top: 6px; }
+.wk-more summary {
+  display: inline-flex; align-items: center; gap: 6px; list-style: none; cursor: pointer;
+  font-family: var(--font-display); font-weight: 600; font-size: 13.5px;
+  text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px;
+}
+.wk-more summary::-webkit-details-marker { display: none; }
+.wk-more summary::after {
+  content: ""; width: 6px; height: 6px; margin-top: -3px;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg);
+  transition: transform .3s var(--ease);
+}
+.wk-more[open] summary::after { margin-top: 3px; transform: rotate(-135deg); }
+.wk-more-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.wk-more-links a {
+  padding: 5px 12px; border-radius: 999px;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  font-family: var(--font-display); font-weight: 550; font-size: 13px; text-decoration: none;
+  transition: background-color .3s;
+}
+.wk-more-links a:hover { background: color-mix(in srgb, currentColor 24%, transparent); }
 .wk.is-past { opacity: .45; }
 
 /* Language switch --------------------------------------- */
