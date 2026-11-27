@@ -1,0 +1,5 @@
+# Mantém quebras de linha LF (o hash do script inline no _headers depende disso)
+* text=auto eol=lf
+*.webp binary
+*.jpg binary
+*.woff2 binary
