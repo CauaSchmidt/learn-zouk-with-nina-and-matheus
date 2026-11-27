@@ -22,6 +22,10 @@ Edite só o `data.js`. As instruções estão no começo do arquivo.
 - **Cursos:** ficam na lista `products`, com o link de compra no Lab.
 - **Mentoria:** quando tiver o link do Choreo Journey no Lab, coloque em `mentoring.url`.
 
+## Ao publicar uma mudança
+
+No `index.html`, os arquivos `styles.css`, `data.js`, `i18n.js` e `main.js` são carregados com `?v=...` no final. **Troque esse número a cada publicação** (por exemplo, `?v=20261128-1`). Sem isso, quem já abriu o site pode ver a página nova misturada com arquivos antigos guardados no navegador, e o visual quebra.
+
 ## Idiomas
 
 O site abre em inglês e tem botões EN / PT / ES no topo. A escolha fica salva no navegador da pessoa. Para mudar uma tradução, edite o `i18n.js`.
