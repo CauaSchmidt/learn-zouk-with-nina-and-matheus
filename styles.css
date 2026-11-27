@@ -182,11 +182,19 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
 .site-header.is-hidden { transform: translateY(-100%); }
 .header-inner { display: flex; align-items: center; gap: 32px; height: var(--header-h); }
 .brand {
+  display: inline-flex; align-items: center; gap: 10px;
   margin-right: auto;
   font-family: var(--font-display); font-weight: 700; font-stretch: 125%; font-size: 21px; letter-spacing: -.01em;
   text-decoration: none; white-space: nowrap;
   transition: font-stretch .6s var(--ease);
 }
+.brand-mark {
+  flex: none; width: 34px; height: 34px; background: currentColor;
+  -webkit-mask: url(img/logo-mark.png) center / contain no-repeat;
+  mask: url(img/logo-mark.png) center / contain no-repeat;
+  transition: transform .6s var(--ease);
+}
+.brand:hover .brand-mark { transform: rotate(-12deg) scale(1.08); }
 .brand:hover { font-stretch: 150%; }
 .nav { display: flex; gap: 28px; }
 .nav a {
@@ -439,7 +447,7 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
   background: #e6d6c8; color: #17211b;
 }
 .mentor-photo { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 20px; margin-bottom: 24px; }
-.mentor-photo img { width: 100%; height: 100%; object-fit: cover; }
+.mentor-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
 .mentor-label { font-style: italic; color: #5d5249; }
 .mentor-title { margin: 2px 0 14px; font-size: clamp(34px, 3.4vw, 50px); font-weight: 700; font-stretch: 135%; line-height: .98; letter-spacing: -.03em; }
 .mentor-text { margin-bottom: 20px; }
@@ -456,8 +464,13 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
 
 /* Calendar ---------------------------------------------- */
 .icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.cal-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px 48px; margin-bottom: 36px; }
+.cal-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 48px; margin-bottom: 36px; }
+.cal-head-text { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px 48px; }
 .cal-head .section-head { margin-bottom: 0; }
+.cal-photo { width: 220px; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 999px; }
+.cal-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+.contact-photo { aspect-ratio: 21 / 9; overflow: hidden; border-radius: var(--radius-photo); margin-bottom: clamp(40px, 5vw, 64px); }
+.contact-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; }
 .next-stop { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; margin-bottom: 28px; padding: 18px 0; border-block: 1px solid var(--line); }
 .next-label { font-style: italic; color: var(--muted); }
 .next-event { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
@@ -724,7 +737,10 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
   .panel-label { display: none; }
   .panel-body { opacity: 1; transform: none; }
 
-  .cal-head { flex-direction: column; align-items: stretch; }
+  .cal-head { grid-template-columns: minmax(0, 1fr) 120px; align-items: start; }
+  .cal-head-text { flex-direction: column; align-items: stretch; }
+  .cal-photo { width: 120px; }
+  .contact-photo { aspect-ratio: 4 / 3; }
   .months { grid-auto-columns: min(82vw, 340px); }
 
   .contact-grid { grid-template-columns: 1fr; }
