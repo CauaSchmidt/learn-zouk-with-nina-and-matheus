@@ -73,6 +73,7 @@
   --wrap: 1320px;
   --header-h: 76px;
   --radius-photo: 32px;
+  --live: #e5484d; --live-soft: #ff8f8f;
 }
 
 /* Tons -------------------------------------------------- */
@@ -431,12 +432,38 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
 .contact-main .contact-details { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
 .contact-photo { aspect-ratio: 4 / 5; max-height: 640px; overflow: hidden; border-radius: var(--radius-photo); }
 .contact-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-.next-stop { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; margin-bottom: 28px; padding: 18px 0; border-block: 1px solid var(--line); }
-.next-label { font-style: italic; color: var(--muted); }
-.next-event { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
-.next-event strong { font-family: var(--font-display); font-weight: 650; font-stretch: 118%; font-size: clamp(20px, 2vw, 26px); transition: font-stretch .6s var(--ease); }
-.next-event:hover strong { font-stretch: 140%; }
-.next-event span { color: var(--muted); }
+/* Próxima parada: cartão em destaque logo abaixo do título da agenda */
+.next-stop {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 48px;
+  margin-bottom: clamp(36px, 4vw, 56px); padding: clamp(24px, 3.2vw, 44px);
+  border-radius: var(--radius-photo); background: var(--btn-bg); color: var(--btn-fg);
+}
+.next-stop::before {
+  content: ""; position: absolute; z-index: -1; right: -12%; top: -60%; width: 60%; aspect-ratio: 1;
+  border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 38%, transparent), transparent);
+  animation: next-glow 9s var(--ease) infinite alternate;
+}
+.next-stop.is-live::before { background: radial-gradient(closest-side, color-mix(in srgb, var(--live) 34%, transparent), transparent); }
+@keyframes next-glow { to { transform: translate3d(-18%, 22%, 0) scale(1.15); } }
+.next-label { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px; font-family: var(--font-display); font-weight: 600; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }
+.next-stop.is-live .next-label { opacity: 1; color: var(--live-soft); }
+.next-name { font-family: var(--font-display); font-weight: 720; font-stretch: 125%; letter-spacing: -.03em; font-size: clamp(32px, 4.6vw, 64px); line-height: .98; }
+.next-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 16px; font-size: clamp(16px, 1.4vw, 19px); }
+.next-when { padding: 3px 12px; border-radius: 999px; background: color-mix(in srgb, currentColor 14%, transparent); font-family: var(--font-display); font-weight: 600; font-size: 14px; }
+.next-stop.is-live .next-when { background: var(--live); color: #fff; }
+.next-then { margin-top: 20px; padding-top: 16px; border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent); font-size: 15px; opacity: .78; }
+.next-then span { font-style: italic; }
+.next-then strong { font-family: var(--font-display); font-weight: 600; }
+.next-actions { display: flex; flex-direction: column; gap: 10px; }
+.next-actions .btn { background: var(--btn-fg); color: var(--btn-bg); border-color: transparent; white-space: nowrap; }
+.next-actions .btn-ghost { background: transparent; color: var(--btn-fg); border-color: color-mix(in srgb, var(--btn-fg) 35%, transparent); }
+.next-actions .btn-ghost:hover { border-color: var(--btn-fg); background: color-mix(in srgb, var(--btn-fg) 8%, transparent); }
+
+/* Ponto vermelho "estamos aqui" (só transform/opacity) */
+.live-dot { position: relative; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--live); }
+.live-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--live); animation: live-pulse 1.6s var(--ease) infinite; }
+@keyframes live-pulse { from { transform: scale(1); opacity: .7; } to { transform: scale(3); opacity: 0; } }
 .cal-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
 .cal-index { display: flex; gap: 6px; min-width: 0; overflow-x: auto; padding: 4px 2px; scrollbar-width: none; }
 .cal-index::-webkit-scrollbar { display: none; }
@@ -737,10 +764,18 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
 /* =========================================================
    MAPA DA TURNÊ
    ========================================================= */
-.tour-map { position: relative; margin: 8px 0 40px; }
+.tour-map {
+  position: relative; display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 760px);
+  justify-content: space-between; align-items: center; gap: 28px 56px;
+  margin-top: clamp(56px, 7vw, 104px); padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--line);
+}
+.tour-map-title { font-size: clamp(26px, 2.6vw, 36px); font-stretch: 115%; line-height: 1.05; margin-bottom: 12px; }
+.tour-map-info .tour-map-count { margin-bottom: 24px; }
+.tour-map-info .tour-map-legend { flex-direction: column; gap: 10px; }
+.tour-map-tip { margin-top: 20px; font-size: 14px; font-style: italic; color: var(--muted); }
 .tour-map-canvas {
   position: relative; aspect-ratio: 1000 / 372;
-  border-radius: 28px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line);
+  border-radius: 22px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line);
 }
 .tour-map-dots {
   position: absolute; inset: 0; border-radius: inherit;
@@ -758,6 +793,9 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
 .pin-past { fill: var(--surface); stroke: color-mix(in srgb, var(--fg) 55%, transparent); stroke-width: 1.5; }
 .pin-next { fill: var(--accent); }
 .pin-home { fill: var(--fg); }
+.pin-live { fill: var(--live); }
+.pin-ring--live { stroke: var(--live); stroke-width: 2; animation-duration: 1.6s; }
+.pin-label.pin-label--live { fill: var(--live); font-weight: 750; }
 .pin-ring { fill: none; stroke: var(--accent); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: ring 2.4s var(--ease) infinite; }
 @keyframes ring { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
 .pin .pin-dot { transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform .6s var(--ease); transition-delay: var(--d, 0s); }
@@ -781,13 +819,14 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
 .tour-map-card .wk-actions { margin-top: 12px; }
 .tour-map-card ul { margin: 6px 0 0; padding-left: 18px; font-size: 15px; }
 .tour-map-close { position: absolute; top: 8px; right: 10px; width: 28px; height: 28px; border: 0; border-radius: 50%; background: transparent; color: inherit; font-size: 18px; line-height: 1; cursor: pointer; }
-.tour-map-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 16px; }
 .tour-map-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; padding: 0; list-style: none; font-size: 15px; color: var(--muted); }
 .tour-map-legend li { display: inline-flex; align-items: center; gap: 8px; }
 .lg { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
 .lg-next { background: var(--accent); }
 .lg-past { border: 1.5px solid var(--muted); }
 .lg-home { background: var(--fg); }
+.lg-live { background: var(--live); }
+.lg-live-item { color: var(--fg); font-weight: 600; }
 .tour-map-count { font-style: italic; color: var(--muted); }
 .tour-map-count strong { font-family: var(--font-display); font-style: normal; font-weight: 700; font-stretch: 130%; font-size: 30px; color: var(--fg); margin-right: 4px; }
 
@@ -876,12 +915,21 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
   .chapter-mark { font-size: 12.4vw; font-stretch: 125%; }
   .chapter-photo { width: 100%; }
   .tour-map-canvas { border-radius: 18px; }
+  .tour-map { grid-template-columns: minmax(0, 1fr); }
+  .tour-map-info .tour-map-legend { flex-direction: row; flex-wrap: wrap; gap: 8px 18px; }
+  .tour-map-info .tour-map-count { margin-bottom: 16px; }
+  .tour-map-tip { margin-top: 12px; }
+  .next-stop { grid-template-columns: minmax(0, 1fr); }
+  .next-actions { flex-direction: row; flex-wrap: wrap; }
+  .next-actions .btn { flex: 1 1 auto; }
   .pin-label { display: none; }
+  .pin-label.pin-label--live { display: inline; }
   .tour-map-card, .tour-map-card.below { position: relative; left: auto !important; top: auto !important; transform: none; width: auto; margin-top: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .route-line { stroke-dashoffset: 0; transition: none; }
   .pin-ring { animation: none; }
+  .live-dot::after, .next-stop::before { animation: none; }
   .pin .pin-dot { transform: scale(1); }
 }
 
@@ -889,4 +937,5 @@ h2 { font-size: clamp(36px, 5vw, 68px); font-stretch: 112%; line-height: 1.02; }
 .tour-map-card .wk-private { background: var(--accent); color: var(--bg); }
 .tour-map-card .wk-links { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; font-size: 15px; }
 .tour-map-card .wk-links a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.tour-map-card .card-kicker { margin-bottom: 6px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.tour-map-card .card-kicker { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.tour-map-card .card-kicker--live { opacity: 1; color: var(--live-soft); }

@@ -20,6 +20,7 @@ Edite só o `data.js`. As instruções estão no começo do arquivo.
 
 - **Calendário:** cada evento entra no fim de semana em que acontece. Fim de semana sem evento aparece como livre, com botão de convite pelo WhatsApp.
 - **Mapa da turnê:** usa os mesmos eventos. A cidade precisa estar em `places` (no `data.js`) com latitude e longitude; cidade sem coordenada fica fora do mapa, mas continua no calendário.
+- **Próxima parada e "Estamos aqui":** o cartão de destaque e o ponto vermelho no mapa mudam sozinhos pela data. O ponto vermelho aparece da segunda-feira da semana do evento até o último dia dele. Para ver como vai ficar numa data, abra o site com `?today=2026-12-04` no final do endereço.
 - **Cursos:** ficam na lista `products`, com o link de compra no Lab.
 - **Mentoria:** quando tiver o link do Choreo Journey no Lab, coloque em `mentoring.url`.
 

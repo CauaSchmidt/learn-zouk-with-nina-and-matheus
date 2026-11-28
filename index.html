@@ -21,7 +21,7 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/anybody-normal-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/newsreader-normal-latin.woff2" crossorigin>
   <link rel="preload" as="image" href="img/hero-duo-800.webp" imagesrcset="img/hero-duo-480.webp 480w, img/hero-duo-800.webp 800w, img/hero-duo-1280.webp 1280w" imagesizes="(max-width: 960px) 76vw, 420px" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=20261127-11">
+  <link rel="stylesheet" href="styles.css?v=20261128-1">
   <script>
     (function () {
       var d = document.documentElement, done = function () { d.classList.add("is-ready"); };
@@ -44,9 +44,9 @@
       <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>Nina &amp; Matheus</a>
       <nav class="nav" aria-label="Main">
         <a href="#learn" data-i18n="nav.learn">Learn</a>
+        <a href="#calendar" data-i18n="nav.calendar">Calendar</a>
         <a href="#courses" data-i18n="nav.courses">Courses</a>
         <a href="#about" data-i18n="nav.about">About</a>
-        <a href="#calendar" data-i18n="nav.calendar">Calendar</a>
         <a href="#watch" data-i18n="nav.watch">Watch</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
@@ -66,9 +66,9 @@
   <div class="menu" id="menu" aria-hidden="true" inert>
     <nav class="menu-links" aria-label="Mobile">
       <a href="#learn" style="--i:0" data-i18n="nav.learn">Learn</a>
-      <a href="#courses" style="--i:1" data-i18n="nav.courses">Courses</a>
-      <a href="#about" style="--i:2" data-i18n="nav.about">About</a>
-      <a href="#calendar" style="--i:3" data-i18n="nav.calendar">Calendar</a>
+      <a href="#calendar" style="--i:1" data-i18n="nav.calendar">Calendar</a>
+      <a href="#courses" style="--i:2" data-i18n="nav.courses">Courses</a>
+      <a href="#about" style="--i:3" data-i18n="nav.about">About</a>
       <a href="#watch" style="--i:4" data-i18n="nav.watch">Watch</a>
       <a href="#contact" style="--i:5" data-i18n="nav.contact">Contact</a>
     </nav>
@@ -188,6 +188,58 @@
           <img class="is-active" src="img/duo-jacket-800.webp" srcset="img/duo-jacket-480.webp 480w, img/duo-jacket-800.webp 800w, img/duo-jacket-1280.webp 1280w" sizes="(max-width: 960px) 100vw, 40vw" alt="" loading="lazy" decoding="async">
           <img src="img/workshop-steps-800.webp" srcset="img/workshop-steps-480.webp 480w, img/workshop-steps-800.webp 800w, img/workshop-steps-1280.webp 1280w" sizes="(max-width: 960px) 100vw, 40vw" alt="" loading="lazy" decoding="async">
           <img src="img/nina-green-800.webp" srcset="img/nina-green-480.webp 480w, img/nina-green-800.webp 800w, img/nina-green-1280.webp 1280w" sizes="(max-width: 960px) 100vw, 40vw" alt="" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDAR -->
+    <section class="section calendar" id="calendar" data-tone="sand">
+      <div class="wrap">
+        <header class="cal-head">
+          <div class="cal-head-text">
+            <div class="section-head">
+              <h2 data-i18n="cal.title">Tour calendar</h2>
+              <p data-i18n="cal.lead">Almost every weekend we're teaching at a festival or a studio somewhere in the world. Open weekends can be booked for your event.</p>
+            </div>
+            <a class="btn" data-wa="wa.invite" data-i18n="cta.invite">Invite us to your event</a>
+          </div>
+          <figure class="cal-photo unveil">
+            <img src="img/dj-red-800.webp" srcset="img/dj-red-480.webp 480w, img/dj-red-800.webp 800w, img/dj-red-1280.webp 1280w" sizes="(max-width: 800px) 40vw, 240px" alt="Matheus with headphones" loading="lazy" decoding="async" width="4000" height="6000">
+          </figure>
+        </header>
+
+        <div class="next-stop" id="next-stop" hidden></div>
+
+        <div class="cal-controls">
+          <div class="cal-index" id="cal-index" role="group" aria-label="Months"></div>
+          <div class="cal-arrows">
+            <button class="cal-arrow" type="button" data-dir="-1" aria-label="Previous month" data-i18n-attr="aria-label:cal.prev"><svg class="icon"><use href="#i-prev"/></svg></button>
+            <button class="cal-arrow" type="button" data-dir="1" aria-label="Next month" data-i18n-attr="aria-label:cal.next"><svg class="icon"><use href="#i-next"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="months" id="months" tabindex="0" role="region" aria-label="Tour calendar" data-i18n-attr="aria-label:cal.title"></div>
+
+      <div class="wrap">
+        <div class="tour-map" id="tour-map">
+          <div class="tour-map-info">
+            <h3 class="tour-map-title" data-i18n="map.title">Where we've danced</h3>
+            <p class="tour-map-count"><strong>20+</strong> <span data-i18n="map.countries">countries and counting</span></p>
+            <ul class="tour-map-legend">
+              <li class="lg-live-item" hidden><i class="lg lg-live"></i><span data-i18n="map.live">We're here</span></li>
+              <li><i class="lg lg-next"></i><span data-i18n="map.next">Next events</span></li>
+              <li><i class="lg lg-past"></i><span data-i18n="map.past">Stages we've taught on</span></li>
+              <li><i class="lg lg-home"></i><span data-i18n="map.home">Home: Campinas</span></li>
+            </ul>
+            <p class="tour-map-tip" data-i18n="map.tip">Tap a pin to see the events.</p>
+          </div>
+          <div class="tour-map-stage">
+            <div class="tour-map-canvas">
+              <div class="tour-map-dots" aria-hidden="true"></div>
+              <svg class="tour-map-svg" id="tour-map-svg" viewBox="0 0 1000 372" role="group" aria-label="Tour map" data-i18n-attr="aria-label:map.label"></svg>
+            </div>
+            <div class="tour-map-card" id="tour-map-card" role="dialog" hidden></div>
+          </div>
         </div>
       </div>
     </section>
@@ -331,51 +383,6 @@
       </div>
     </section>
 
-    <!-- CALENDAR -->
-    <section class="section calendar" id="calendar" data-tone="pistachio">
-      <div class="wrap">
-        <header class="cal-head">
-          <div class="cal-head-text">
-            <div class="section-head">
-              <h2 data-i18n="cal.title">Tour calendar</h2>
-              <p data-i18n="cal.lead">Almost every weekend we're teaching at a festival or a studio somewhere in the world. Open weekends can be booked for your event.</p>
-            </div>
-            <a class="btn" data-wa="wa.invite" data-i18n="cta.invite">Invite us to your event</a>
-          </div>
-          <figure class="cal-photo unveil">
-            <img src="img/dj-red-800.webp" srcset="img/dj-red-480.webp 480w, img/dj-red-800.webp 800w, img/dj-red-1280.webp 1280w" sizes="(max-width: 800px) 40vw, 240px" alt="Matheus with headphones" loading="lazy" decoding="async" width="4000" height="6000">
-          </figure>
-        </header>
-
-        <p class="next-stop" id="next-stop" hidden></p>
-
-        <div class="tour-map" id="tour-map">
-          <div class="tour-map-canvas">
-            <div class="tour-map-dots" aria-hidden="true"></div>
-            <svg class="tour-map-svg" id="tour-map-svg" viewBox="0 0 1000 372" role="group" aria-label="Tour map" data-i18n-attr="aria-label:map.label"></svg>
-          </div>
-          <div class="tour-map-card" id="tour-map-card" role="dialog" hidden></div>
-          <div class="tour-map-foot">
-            <ul class="tour-map-legend">
-              <li><i class="lg lg-next"></i><span data-i18n="map.next">Next events</span></li>
-              <li><i class="lg lg-past"></i><span data-i18n="map.past">Stages we've taught on</span></li>
-              <li><i class="lg lg-home"></i><span data-i18n="map.home">Home: Campinas</span></li>
-            </ul>
-            <p class="tour-map-count"><strong>20+</strong> <span data-i18n="map.countries">countries and counting</span></p>
-          </div>
-        </div>
-
-        <div class="cal-controls">
-          <div class="cal-index" id="cal-index" role="group" aria-label="Months"></div>
-          <div class="cal-arrows">
-            <button class="cal-arrow" type="button" data-dir="-1" aria-label="Previous month" data-i18n-attr="aria-label:cal.prev"><svg class="icon"><use href="#i-prev"/></svg></button>
-            <button class="cal-arrow" type="button" data-dir="1" aria-label="Next month" data-i18n-attr="aria-label:cal.next"><svg class="icon"><use href="#i-next"/></svg></button>
-          </div>
-        </div>
-      </div>
-      <div class="months" id="months" tabindex="0" role="region" aria-label="Tour calendar" data-i18n-attr="aria-label:cal.title"></div>
-    </section>
-
     <!-- WATCH -->
     <section class="section watch" id="watch" data-tone="night">
       <div class="wrap">
@@ -424,9 +431,9 @@
       <div class="footer-cols">
         <nav aria-label="Footer">
           <a href="#learn" data-i18n="nav.learn">Learn</a>
+          <a href="#calendar" data-i18n="nav.calendar">Calendar</a>
           <a href="#courses" data-i18n="nav.courses">Courses</a>
           <a href="#about" data-i18n="nav.about">About</a>
-          <a href="#calendar" data-i18n="nav.calendar">Calendar</a>
           <a href="#watch" data-i18n="nav.watch">Watch</a>
           <a href="#contact" data-i18n="nav.contact">Contact</a>
         </nav>
@@ -442,8 +449,8 @@
     </div>
   </footer>
 
-  <script src="data.js?v=20261127-11"></script>
-  <script src="i18n.js?v=20261127-11"></script>
-  <script src="main.js?v=20261127-11"></script>
+  <script src="data.js?v=20261128-1"></script>
+  <script src="i18n.js?v=20261128-1"></script>
+  <script src="main.js?v=20261128-1"></script>
 </body>
 </html>

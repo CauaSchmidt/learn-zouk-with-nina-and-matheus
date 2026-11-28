@@ -348,7 +348,7 @@
   var mapEl = $("#tour-map");
   var mapSvg = $("#tour-map-svg");
   var mapCard = $("#tour-map-card");
-  var mapCanvas = $(".tour-map-canvas", mapEl);
+  var liveLegend = $(".lg-live-item", mapEl);
   var SVGNS = "http://www.w3.org/2000/svg";
   var mapPins = {};
   var openPin = null;
@@ -383,6 +383,7 @@
         if (pastByPlace[e.location].indexOf(e.name) === -1) pastByPlace[e.location].push(e.name);
       });
     var upPlaces = upcoming.map(function (e) { return e.location; });
+    var liveEv = upcoming[0] && isLive(upcoming[0]) ? upcoming[0] : null;
 
     mapPins = {};
     var html = "";
@@ -399,30 +400,43 @@
       }
     }
 
-    function pin(key, pt, cls, label, labelLeft, delay, ring) {
-      mapPins[key] = { label: label };
-      return '<g class="pin" tabindex="0" role="button" data-key="' + esc(key) + '" aria-label="' + esc(label) + '" style="--x:' + pt.x.toFixed(1) + "px;--y:" + pt.y.toFixed(1) + "px;--d:" + delay.toFixed(2) + 's">' +
+    // o: { cls, label (nome completo), text (rótulo no mapa), left, delay, ring }
+    function pin(key, pt, o) {
+      var live = o.cls === "pin-live";
+      mapPins[key] = { label: o.label };
+      return '<g class="pin' + (live ? " pin--live" : "") + '" tabindex="0" role="button" data-key="' + esc(key) + '" aria-label="' + esc(live ? o.text : o.label) + '" style="--x:' + pt.x.toFixed(1) + "px;--y:" + pt.y.toFixed(1) + "px;--d:" + o.delay.toFixed(2) + 's">' +
         '<circle class="pin-hit" r="13"/>' +
-        (ring ? '<circle class="pin-ring" r="7"/>' : "") +
-        '<circle class="pin-dot ' + cls + '" r="' + (cls === "pin-past" ? 4.5 : 6) + '"/>' +
-        (labelLeft == null ? "" : '<text class="pin-label' + (labelLeft ? " pin-label--left" : "") + '" x="' + (labelLeft ? -12 : 12) + '" y="4.5">' + esc(labelLeft ? label.split(",")[0] : label.split(",")[0]) + "</text>") +
+        (o.ring ? '<circle class="pin-ring' + (live ? " pin-ring--live" : "") + '" r="7"/>' : "") +
+        '<circle class="pin-dot ' + o.cls + '" r="' + (o.cls === "pin-past" ? 4.5 : live ? 7 : 6) + '"/>' +
+        (o.text ? '<text class="pin-label' + (o.left ? " pin-label--left" : "") + (live ? " pin-label--live" : "") + '" x="' + (o.left ? -12 : 13) + '" y="4.5">' + esc(o.text) + "</text>" : "") +
         "</g>";
     }
 
     pastOrder.forEach(function (place, i) {
       if (place === home || upPlaces.indexOf(place) !== -1) return;
-      html += pin("past:" + place, project(place), "pin-past", place, null, 0.2 + i * 0.05, false);
+      html += pin("past:" + place, project(place), { cls: "pin-past", label: place, delay: 0.2 + i * 0.05 });
     });
-    if (homePt) html += pin("home", homePt, "pin-home", home, true, 0.1, false);
+    if (homePt) html += pin("home", homePt, { cls: "pin-home", label: home, text: home.split(",")[0], left: true, delay: 0.1 });
+    var liveHtml = "";
     upcoming.forEach(function (e, i) {
       var key = "next:" + i;
-      html += pin(key, project(e.location), "pin-next", e.location, false, 0.4 + (i + 1) / n * 2.2, true);
+      var city = e.location.split(",")[0];
+      var isNow = e === liveEv;
+      var h = pin(key, project(e.location), {
+        cls: isNow ? "pin-live" : "pin-next", label: e.location,
+        text: isNow ? t("map.live") + " · " + city : city,
+        delay: 0.4 + (i + 1) / n * 2.2, ring: true
+      });
       mapPins[key].event = e;
+      mapPins[key].live = isNow;
+      if (isNow) liveHtml = h; else html += h;
     });
+    html += liveHtml; // "Estamos aqui" fica por cima de tudo
     Object.keys(mapPins).forEach(function (k) {
       if (k.indexOf("past:") === 0) mapPins[k].names = pastByPlace[k.slice(5)];
     });
-    mapPins.home && (mapPins.home.names = pastByPlace[home] || []);
+    if (mapPins.home) mapPins.home.names = pastByPlace[home] || [];
+    if (liveLegend) liveLegend.hidden = !liveEv;
 
     mapSvg.innerHTML = html;
     scaleMap();
@@ -450,7 +464,8 @@
       var links = "";
       if (e.link) links += '<a href="' + esc(e.link) + '" target="_blank" rel="noopener">' + esc(t("cal.site")) + "</a>";
       if (e.instagram) links += '<a href="' + esc(e.instagram) + '" target="_blank" rel="noopener">' + esc(t("cal.instagram")) + "</a>";
-      return close + '<p class="card-kicker">' + esc(t("map.next")) + "</p>" +
+      var kicker = p.live ? '<p class="card-kicker card-kicker--live"><i class="live-dot" aria-hidden="true"></i>' + esc(t("map.live")) + "</p>" : '<p class="card-kicker">' + esc(t("map.next")) + "</p>";
+      return close + kicker +
         "<h4>" + esc(e.name) + "</h4>" +
         "<p>" + esc(e.location) + " · " + esc(rangeYear(e)) + "</p>" +
         '<div class="wk-actions"><a class="wk-private" href="' + esc(waLink(t("wa.privateAt", { event: where, date: rangeYear(e) }))) + '" target="_blank" rel="noopener">' + esc(t("cal.bookPrivate")) + "</a></div>" +
@@ -476,17 +491,17 @@
     mapCard.classList.remove("below");
     if (getComputedStyle(mapCard).position !== "absolute") return;
     var g = $('.pin[data-key="' + key.replace(/"/g, '\\"') + '"]', mapSvg);
-    var cr = mapCanvas.getBoundingClientRect();
     var mr = mapEl.getBoundingClientRect();
     var pr = g.querySelector(".pin-dot").getBoundingClientRect();
     var px = pr.left + pr.width / 2 - mr.left;
     var py = pr.top + pr.height / 2 - mr.top;
     var cw = mapCard.offsetWidth;
     var ch = mapCard.offsetHeight;
-    var left = Math.max(cw / 2 + 8, Math.min(cr.width - cw / 2 - 8, px));
+    // O cartão pode sair do mapa para o lado do texto; abre para cima, ou para baixo se não couber na tela
+    var left = Math.max(cw / 2 + 4, Math.min(mr.width - cw / 2 - 4, px));
     mapCard.style.left = left + "px";
     mapCard.style.top = py + "px";
-    if (py - (cr.top - mr.top) < ch + 26) mapCard.classList.add("below");
+    if (pr.top - ch - 26 < 84) mapCard.classList.add("below");
   }
   function closeCard() {
     openPin = null;
@@ -540,7 +555,21 @@
   /* ================= Calendário ================= */
   function parse(s) { var p = s.split("-").map(Number); return new Date(p[0], p[1] - 1, p[2] || 1); }
   var today = new Date();
+  var forcedDay = /[?&]today=(\d{4}-\d{2}-\d{2})/.exec(location.search);
+  if (forcedDay) today = parse(forcedDay[1]);
   today.setHours(0, 0, 0, 0);
+
+  // Semana do evento: de segunda-feira da semana em que ele começa até o último dia
+  function weekStart(d) { var w = new Date(d); w.setDate(w.getDate() - ((w.getDay() + 6) % 7)); return w; }
+  function isLive(e) { return !!e && today >= weekStart(parse(e.startDate)) && today <= parse(e.endDate); }
+  function whenLabel(e) {
+    var start = parse(e.startDate);
+    if (today >= start) return t("cal.now");
+    if (!(window.Intl && Intl.RelativeTimeFormat)) return "";
+    var rtf = new Intl.RelativeTimeFormat(LOCALES[lang], { numeric: "auto" });
+    var days = Math.round((start - today) / 864e5);
+    return days > 60 ? rtf.format(Math.round(days / 30), "month") : rtf.format(days, "day");
+  }
 
   function monthShort(d) {
     return new Intl.DateTimeFormat(LOCALES[lang], { month: "short" }).format(d).replace(".", "");
@@ -635,14 +664,31 @@
         esc(monthShort(m.date)) + (showYear ? "<small>" + String(y).slice(2) + "</small>" : "") + "</button>";
     }).join("");
 
-    var next = events.filter(function (e) { return parse(e.endDate) >= today; })[0];
+    var up = events.filter(function (e) { return parse(e.endDate) >= today; });
+    var next = up[0];
     if (next) {
+      var start = parse(next.startDate);
+      var live = isLive(next);
+      var started = today >= start;
+      var dates = rangeYear(next);
+      var where = next.name + (next.location ? " (" + next.location + ")" : "");
+      var then = up[1];
       nextStopEl.hidden = false;
-      nextStopEl.innerHTML = '<span class="next-label">' + esc(t("cal.nextStop")) + "</span>" +
-        '<button type="button" class="next-event" data-month="' + parse(next.startDate).getFullYear() + "-" + (parse(next.startDate).getMonth() + 1) + '">' +
-        "<strong>" + esc(next.name) + "</strong>" +
-        (next.location ? "<span>" + esc(next.location) + "</span>" : "") +
-        "<span>" + rangeLabel(parse(next.startDate), parse(next.endDate)) + "</span></button>";
+      nextStopEl.classList.toggle("is-live", live);
+      nextStopEl.innerHTML =
+        '<div class="next-main">' +
+          '<p class="next-label">' + (live ? '<i class="live-dot" aria-hidden="true"></i>' : "") + esc(started ? t("map.live") : live ? t("cal.thisWeek") : t("cal.nextStop")) + "</p>" +
+          '<h3 class="next-name">' + esc(next.name) + "</h3>" +
+          '<p class="next-meta">' + (next.location ? '<span class="next-place">' + esc(next.location) + "</span>" : "") +
+            '<span class="next-dates">' + esc(dates) + "</span>" +
+            '<span class="next-when">' + esc(whenLabel(next)) + "</span></p>" +
+          (then ? '<p class="next-then"><span>' + esc(t("cal.then")) + "</span> <strong>" + esc(then.name) + "</strong>" +
+            (then.location ? " · " + esc(then.location) : "") + " · " + esc(rangeLabel(parse(then.startDate), parse(then.endDate))) + "</p>" : "") +
+        "</div>" +
+        '<div class="next-actions">' +
+          '<a class="btn" href="' + esc(waLink(t("wa.privateAt", { event: where, date: dates }))) + '" target="_blank" rel="noopener">' + esc(t("cal.bookPrivate")) + "</a>" +
+          '<button type="button" class="btn btn-ghost next-event" data-month="' + start.getFullYear() + "-" + (start.getMonth() + 1) + '">' + esc(t("cal.see")) + "</button>" +
+        "</div>";
     } else {
       nextStopEl.hidden = true;
     }
