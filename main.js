@@ -13,6 +13,8 @@
   };
   var debounce = function (fn, ms) { var t; return function () { clearTimeout(t); t = setTimeout(fn, ms); }; };
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  // Transição interrompida (ex.: rolagem no meio) não deve virar erro no console
+  var quiet = function (vt) { var noop = function () {}; vt.ready.catch(noop); vt.finished.catch(noop); vt.updateCallbackDone.catch(noop); };
 
   /* ================= Idioma ================= */
   var LOCALES = { en: "en-US", pt: "pt-BR", es: "es-ES" };
@@ -219,14 +221,321 @@
     }).join("");
   }
 
-  /* ================= O que fazemos ================= */
-  var panels = $$(".panel");
-  function activatePanel(p) { panels.forEach(function (x) { x.classList.toggle("is-active", x === p); }); }
-  panels.forEach(function (p) {
-    p.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") activatePanel(p); });
-    p.addEventListener("focus", function () { activatePanel(p); });
-    p.addEventListener("click", function () { activatePanel(p); });
+  /* ================= Sobre: história na horizontal ================= */
+  // No computador a seção trava e a rolagem vertical move os capítulos para o lado.
+  var story = $("#story");
+  var track = $("#story-track");
+  var storyBar = $("#story-bar");
+  var chapters = $$(".chapter", track);
+  var pinMQ = window.matchMedia("(min-width: 801px) and (min-height: 520px)");
+  var st = { on: false, dist: 0, cur: 0, raf: 0, items: [] };
+
+  function storyApply(p) {
+    var x = -p * st.dist;
+    var vw = window.innerWidth;
+    track.style.transform = "translate3d(" + x.toFixed(1) + "px,0,0)";
+    storyBar.style.transform = "scaleX(" + p.toFixed(4) + ")";
+    st.items.forEach(function (it) {
+      var off = (it.c + x - vw / 2) / vw;
+      if (off < -1.4 || off > 1.4) return;
+      if (it.img) it.img.style.transform = "translate3d(" + (off * -48).toFixed(1) + "px,0,0) scale(1.14)";
+      if (it.mark) it.mark.style.transform = "translate3d(" + (off * 140).toFixed(1) + "px,0,0)";
+    });
+  }
+  function storyTarget() {
+    var r = story.getBoundingClientRect();
+    return st.dist ? Math.min(1, Math.max(0, -r.top / st.dist)) : 0;
+  }
+  function storyFrame() {
+    var target = storyTarget();
+    st.cur += (target - st.cur) * 0.16;
+    if (Math.abs(target - st.cur) * st.dist < 0.4) st.cur = target;
+    storyApply(st.cur);
+    st.raf = st.cur !== target ? requestAnimationFrame(storyFrame) : 0;
+  }
+  function measureStory() {
+    var should = pinMQ.matches && !reduceMotion.matches;
+    story.classList.toggle("is-pinned", should);
+    st.on = should;
+    if (!should) {
+      story.style.height = "";
+      track.style.transform = "";
+      st.items.forEach(function (it) {
+        if (it.img) it.img.style.transform = "";
+        if (it.mark) it.mark.style.transform = "";
+      });
+      return;
+    }
+    var last = chapters[chapters.length - 1];
+    st.dist = Math.max(0, last.offsetLeft + last.offsetWidth / 2 - track.parentNode.clientWidth / 2);
+    story.style.height = (st.dist + window.innerHeight) + "px";
+    st.items = chapters.map(function (c) {
+      return { c: c.offsetLeft + c.offsetWidth / 2, img: $(".chapter-photo img", c), mark: $(".chapter-mark", c) };
+    });
+    st.cur = storyTarget();
+    storyApply(st.cur);
+  }
+  window.addEventListener("scroll", function () {
+    if (st.on && !st.raf) st.raf = requestAnimationFrame(storyFrame);
+  }, { passive: true });
+  window.addEventListener("resize", debounce(measureStory, 150));
+  pinMQ.addEventListener("change", measureStory);
+  reduceMotion.addEventListener("change", measureStory);
+
+  /* ================= O que fazemos: foto que segue o mouse ================= */
+  var workEl = $("#work");
+  var skillsEl = $("#skills");
+  var skills = $$(".skill", skillsEl);
+  var floatEl = $("#skill-float");
+  var floatImgs = $$("img", floatEl);
+  var hoverMQ = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 801px)");
+  var fl = { on: false, mx: 0, my: 0, x: 0, y: 0, w: 0, h: 0, raf: 0, fresh: true };
+
+  function setSkill(el) {
+    skills.forEach(function (s) { s.classList.toggle("is-active", s === el); });
+    var i = el ? Number(el.getAttribute("data-img")) : -1;
+    floatImgs.forEach(function (img, j) { img.classList.toggle("is-active", j === i); });
+  }
+  function floatFrame() {
+    var r = workEl.getBoundingClientRect();
+    var tx = fl.mx - r.left;
+    var ty = fl.my - r.top;
+    if (fl.fresh) { fl.x = tx; fl.y = ty; fl.fresh = false; }
+    var dx = tx - fl.x;
+    fl.x += dx * 0.15;
+    fl.y += (ty - fl.y) * 0.15;
+    var rot = Math.max(-9, Math.min(9, dx * 0.05));
+    floatEl.style.transform = "translate3d(" + (fl.x - fl.w / 2).toFixed(1) + "px," + (fl.y - fl.h / 2).toFixed(1) + "px,0) rotate(" + rot.toFixed(2) + "deg)";
+    var moving = Math.abs(dx) > 0.3 || Math.abs(ty - fl.y) > 0.3;
+    fl.raf = (fl.on || moving) ? requestAnimationFrame(floatFrame) : 0;
+  }
+  skills.forEach(function (s) {
+    s.addEventListener("pointerenter", function (e) {
+      if (e.pointerType !== "mouse" || !hoverMQ.matches) return;
+      setSkill(s);
+    });
+    s.addEventListener("focus", function () { setSkill(s); });
+    s.addEventListener("blur", function () { if (!skillsEl.classList.contains("is-hovering")) setSkill(null); });
   });
+  skillsEl.addEventListener("pointerenter", function (e) {
+    if (e.pointerType !== "mouse" || !hoverMQ.matches) return;
+    fl.on = true;
+    fl.fresh = !floatEl.classList.contains("is-visible");
+    fl.w = floatEl.offsetWidth;
+    fl.h = floatEl.offsetHeight;
+    fl.mx = e.clientX; fl.my = e.clientY;
+    skillsEl.classList.add("is-hovering");
+    floatEl.classList.add("is-visible");
+    if (!fl.raf) fl.raf = requestAnimationFrame(floatFrame);
+  });
+  skillsEl.addEventListener("pointermove", function (e) {
+    if (!fl.on) return;
+    fl.mx = e.clientX; fl.my = e.clientY;
+    if (!fl.raf) fl.raf = requestAnimationFrame(floatFrame);
+  });
+  skillsEl.addEventListener("pointerleave", function () {
+    if (!fl.on) return;
+    fl.on = false;
+    skillsEl.classList.remove("is-hovering");
+    floatEl.classList.remove("is-visible");
+    setSkill(null);
+  });
+  window.addEventListener("scroll", function () {
+    if (fl.on && !fl.raf) fl.raf = requestAnimationFrame(floatFrame);
+  }, { passive: true });
+
+  /* ================= Mapa da turnê ================= */
+  var mapEl = $("#tour-map");
+  var mapSvg = $("#tour-map-svg");
+  var mapCard = $("#tour-map-card");
+  var mapCanvas = $(".tour-map-canvas", mapEl);
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var mapPins = {};
+  var openPin = null;
+
+  function project(place) {
+    var c = S.places && S.places[place];
+    if (!c) return null;
+    return { x: (c[1] + 180) / 360 * 1000, y: (78 - c[0]) / 134 * 372 };
+  }
+  function arc(a, b) {
+    var mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+    var dx = b.x - a.x, dy = b.y - a.y;
+    var len = Math.sqrt(dx * dx + dy * dy) || 1;
+    var bend = Math.min(160, len * 0.28);
+    return " Q" + (mx + dy / len * bend).toFixed(1) + " " + (my - dx / len * bend).toFixed(1) + " " + b.x.toFixed(1) + " " + b.y.toFixed(1);
+  }
+  function rangeYear(e) {
+    return rangeLabel(parse(e.startDate), parse(e.endDate)) + (lang === "en" ? ", " : " ") + parse(e.endDate).getFullYear();
+  }
+
+  function renderMap() {
+    var home = S.home;
+    var homePt = project(home);
+    var upcoming = events.filter(function (e) { return parse(e.endDate) >= today && project(e.location); });
+    var pastByPlace = {};
+    var pastOrder = [];
+    events.filter(function (e) { return !e.isLocation && parse(e.endDate) < today; })
+      .concat(S.extraStages || [])
+      .forEach(function (e) {
+        if (!project(e.location)) return;
+        if (!pastByPlace[e.location]) { pastByPlace[e.location] = []; pastOrder.push(e.location); }
+        if (pastByPlace[e.location].indexOf(e.name) === -1) pastByPlace[e.location].push(e.name);
+      });
+    var upPlaces = upcoming.map(function (e) { return e.location; });
+
+    mapPins = {};
+    var html = "";
+    var n = Math.max(1, upcoming.length);
+
+    // Rota: de casa até cada próximo evento, em ordem
+    if (homePt && upcoming.length) {
+      var d = "M" + homePt.x.toFixed(1) + " " + homePt.y.toFixed(1);
+      var prev = homePt;
+      upcoming.forEach(function (e) { var p = project(e.location); d += arc(prev, p); prev = p; });
+      html += '<path class="route-line" pathLength="1" d="' + d + '"/>';
+      if (!reduceMotion.matches) {
+        html += '<circle class="route-traveller" r="3.5" opacity="0"><animateMotion dur="' + (3.2 * n) + 's" repeatCount="indefinite" begin="indefinite" path="' + d + '"/></circle>';
+      }
+    }
+
+    function pin(key, pt, cls, label, labelLeft, delay, ring) {
+      mapPins[key] = { label: label };
+      return '<g class="pin" tabindex="0" role="button" data-key="' + esc(key) + '" aria-label="' + esc(label) + '" style="--x:' + pt.x.toFixed(1) + "px;--y:" + pt.y.toFixed(1) + "px;--d:" + delay.toFixed(2) + 's">' +
+        '<circle class="pin-hit" r="13"/>' +
+        (ring ? '<circle class="pin-ring" r="7"/>' : "") +
+        '<circle class="pin-dot ' + cls + '" r="' + (cls === "pin-past" ? 4.5 : 6) + '"/>' +
+        (labelLeft == null ? "" : '<text class="pin-label' + (labelLeft ? " pin-label--left" : "") + '" x="' + (labelLeft ? -12 : 12) + '" y="4.5">' + esc(labelLeft ? label.split(",")[0] : label.split(",")[0]) + "</text>") +
+        "</g>";
+    }
+
+    pastOrder.forEach(function (place, i) {
+      if (place === home || upPlaces.indexOf(place) !== -1) return;
+      html += pin("past:" + place, project(place), "pin-past", place, null, 0.2 + i * 0.05, false);
+    });
+    if (homePt) html += pin("home", homePt, "pin-home", home, true, 0.1, false);
+    upcoming.forEach(function (e, i) {
+      var key = "next:" + i;
+      html += pin(key, project(e.location), "pin-next", e.location, false, 0.4 + (i + 1) / n * 2.2, true);
+      mapPins[key].event = e;
+    });
+    Object.keys(mapPins).forEach(function (k) {
+      if (k.indexOf("past:") === 0) mapPins[k].names = pastByPlace[k.slice(5)];
+    });
+    mapPins.home && (mapPins.home.names = pastByPlace[home] || []);
+
+    mapSvg.innerHTML = html;
+    scaleMap();
+    if (mapEl.classList.contains("is-drawn")) startTraveller();
+    if (openPin && mapPins[openPin]) showCard(openPin); else closeCard();
+  }
+
+  function scaleMap() {
+    var w = mapSvg.getBoundingClientRect().width;
+    if (w) mapSvg.style.setProperty("--k", (1000 / w).toFixed(3));
+  }
+  function startTraveller() {
+    var anim = $("animateMotion", mapSvg);
+    if (!anim || typeof anim.beginElement !== "function") return;
+    var dot = anim.parentNode;
+    setTimeout(function () { dot.setAttribute("opacity", "1"); anim.beginElement(); }, 2400);
+  }
+
+  function cardHtml(key) {
+    var p = mapPins[key];
+    var close = '<button class="tour-map-close" type="button" aria-label="' + esc(t("map.close")) + '">×</button>';
+    if (p.event) {
+      var e = p.event;
+      var where = e.name + (e.location ? " (" + e.location + ")" : "");
+      var links = "";
+      if (e.link) links += '<a href="' + esc(e.link) + '" target="_blank" rel="noopener">' + esc(t("cal.site")) + "</a>";
+      if (e.instagram) links += '<a href="' + esc(e.instagram) + '" target="_blank" rel="noopener">' + esc(t("cal.instagram")) + "</a>";
+      return close + '<p class="card-kicker">' + esc(t("map.next")) + "</p>" +
+        "<h4>" + esc(e.name) + "</h4>" +
+        "<p>" + esc(e.location) + " · " + esc(rangeYear(e)) + "</p>" +
+        '<div class="wk-actions"><a class="wk-private" href="' + esc(waLink(t("wa.privateAt", { event: where, date: rangeYear(e) }))) + '" target="_blank" rel="noopener">' + esc(t("cal.bookPrivate")) + "</a></div>" +
+        (links ? '<div class="wk-links">' + links + "</div>" : "");
+    }
+    var list = (p.names || []).map(function (nm) { return "<li>" + esc(nm) + "</li>"; }).join("");
+    if (key === "home") {
+      return close + '<p class="card-kicker">' + esc(t("map.home")) + "</p>" +
+        "<h4>" + esc(p.label) + "</h4><p>" + esc(t("map.homeCard")) + "</p>" + (list ? "<ul>" + list + "</ul>" : "");
+    }
+    return close + '<p class="card-kicker">' + esc(t("map.pastCard")) + "</p>" +
+      "<h4>" + esc(p.label) + "</h4>" + (list ? "<ul>" + list + "</ul>" : "");
+  }
+
+  function showCard(key) {
+    var p = mapPins[key];
+    if (!p) return;
+    openPin = key;
+    $$(".pin", mapSvg).forEach(function (g) { g.classList.toggle("is-active", g.getAttribute("data-key") === key); });
+    mapCard.innerHTML = cardHtml(key);
+    mapCard.setAttribute("aria-label", p.event ? p.event.name : p.label);
+    mapCard.hidden = false;
+    mapCard.classList.remove("below");
+    if (getComputedStyle(mapCard).position !== "absolute") return;
+    var g = $('.pin[data-key="' + key.replace(/"/g, '\\"') + '"]', mapSvg);
+    var cr = mapCanvas.getBoundingClientRect();
+    var mr = mapEl.getBoundingClientRect();
+    var pr = g.querySelector(".pin-dot").getBoundingClientRect();
+    var px = pr.left + pr.width / 2 - mr.left;
+    var py = pr.top + pr.height / 2 - mr.top;
+    var cw = mapCard.offsetWidth;
+    var ch = mapCard.offsetHeight;
+    var left = Math.max(cw / 2 + 8, Math.min(cr.width - cw / 2 - 8, px));
+    mapCard.style.left = left + "px";
+    mapCard.style.top = py + "px";
+    if (py - (cr.top - mr.top) < ch + 26) mapCard.classList.add("below");
+  }
+  function closeCard() {
+    openPin = null;
+    mapCard.hidden = true;
+    $$(".pin.is-active", mapSvg).forEach(function (g) { g.classList.remove("is-active"); });
+  }
+  mapSvg.addEventListener("click", function (e) {
+    var g = e.target.closest(".pin");
+    if (!g) return;
+    var key = g.getAttribute("data-key");
+    if (openPin === key) closeCard(); else showCard(key);
+  });
+  mapSvg.addEventListener("keydown", function (e) {
+    var g = e.target.closest(".pin");
+    if (!g || (e.key !== "Enter" && e.key !== " ")) return;
+    e.preventDefault();
+    showCard(g.getAttribute("data-key"));
+    var btn = $(".tour-map-close", mapCard);
+    if (btn) btn.focus();
+  });
+  mapCard.addEventListener("click", function (e) {
+    if (!e.target.closest(".tour-map-close")) return;
+    var key = openPin;
+    closeCard();
+    var g = key && $('.pin[data-key="' + key.replace(/"/g, '\\"') + '"]', mapSvg);
+    if (g && e.detail === 0) g.focus();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && openPin) closeCard();
+  });
+  document.addEventListener("click", function (e) {
+    if (openPin && !e.target.closest(".pin") && !e.target.closest("#tour-map-card")) closeCard();
+  });
+  window.addEventListener("resize", debounce(function () {
+    scaleMap();
+    if (openPin) showCard(openPin);
+  }, 150));
+
+  if ("IntersectionObserver" in window && !reduceMotion.matches) {
+    var mapObserver = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      mapEl.classList.add("is-drawn");
+      startTraveller();
+      mapObserver.disconnect();
+    }, { threshold: 0.35 });
+    mapObserver.observe(mapEl);
+  } else {
+    mapEl.classList.add("is-drawn");
+  }
 
   /* ================= Calendário ================= */
   function parse(s) { var p = s.split("-").map(Number); return new Date(p[0], p[1] - 1, p[2] || 1); }
@@ -435,7 +744,7 @@
     var i = Number(btn.getAttribute("data-i"));
     if (i === current && $("iframe", player)) return;
     var swap = function () { selectVideo(i, true); };
-    if (document.startViewTransition && !reduceMotion.matches) document.startViewTransition(swap);
+    if (document.startViewTransition && !reduceMotion.matches) quiet(document.startViewTransition(swap));
     else swap();
   });
   player.addEventListener("click", function (e) {
@@ -450,6 +759,7 @@
     toggleLabel.textContent = t(menu.classList.contains("is-open") ? "menu.close" : "menu.open");
     renderProducts();
     renderCalendar();
+    renderMap();
     renderPlaylist();
     updatePlayerText();
     fitAll();
@@ -460,7 +770,7 @@
       var next = b.getAttribute("data-lang");
       if (next === lang) return;
       var run = function () { setLang(next, true); };
-      if (document.startViewTransition && !reduceMotion.matches) document.startViewTransition(run);
+      if (document.startViewTransition && !reduceMotion.matches) quiet(document.startViewTransition(run));
       else run();
     });
   });
@@ -469,7 +779,8 @@
   renderPlaylist();
   renderPlayer(0, false);
   setLang(lang, false);
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(fitAll);
+  measureStory();
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () { fitAll(); measureStory(); });
 
   // Calendário começa no mês atual (ou no primeiro mês da lista)
   var startIndex = months.findIndex(function (m) {

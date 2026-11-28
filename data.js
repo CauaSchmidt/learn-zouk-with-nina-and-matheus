@@ -37,6 +37,36 @@ window.SITE = {
   // Período mostrado no calendário (mês inicial e mês final)
   calendar: { from: "2026-12", to: "2027-12" },
 
+  // Coordenadas das cidades para o mapa da turnê: "Cidade, País": [latitude, longitude]
+  // Cidade nova na agenda? Adicione aqui (dá para pegar no Google Maps).
+  home: "Campinas, Brazil",
+  places: {
+    "Campinas, Brazil": [-22.91, -47.06],
+    "São Paulo, Brazil": [-23.55, -46.63],
+    "Rio de Janeiro, Brazil": [-22.91, -43.17],
+    "Uberlândia, Brazil": [-18.92, -48.28],
+    "Curitiba, Brazil": [-25.43, -49.27],
+    "Cuiabá, Brazil": [-15.6, -56.1],
+    "Denver, USA": [39.74, -104.99],
+    "Miami, USA": [25.76, -80.19],
+    "Miami Beach, USA": [25.79, -80.13],
+    "New York, USA": [40.71, -74.0],
+    "Boston, USA": [42.36, -71.06],
+    "Taipei, Taiwan": [25.03, 121.56],
+    "Tokyo, Japan": [35.68, 139.69],
+    "Seoul, South Korea": [37.57, 126.98],
+    "Kuala Lumpur, Malaysia": [3.14, 101.69],
+    "Auckland, New Zealand": [-36.85, 174.76],
+    "Melbourne, Australia": [-37.81, 144.96],
+    "Katowice, Poland": [50.26, 19.02],
+    "Warsaw, Poland": [52.23, 21.01],
+    "Brno, Czech Republic": [49.19, 16.61],
+    "Paris, France": [48.86, 2.35],
+    "Lyon, France": [45.76, 4.84],
+    "Amsterdam, Netherlands": [52.37, 4.9],
+    "Portugal": [38.72, -9.14]
+  },
+
   // Cursos à venda no Lab (lab.dance)
   products: [
     {

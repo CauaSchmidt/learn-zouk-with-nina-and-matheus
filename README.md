@@ -19,6 +19,7 @@ Site estático: HTML, CSS e JavaScript puros, sem build. Funciona em qualquer ho
 Edite só o `data.js`. As instruções estão no começo do arquivo.
 
 - **Calendário:** cada evento entra no fim de semana em que acontece. Fim de semana sem evento aparece como livre, com botão de convite pelo WhatsApp.
+- **Mapa da turnê:** usa os mesmos eventos. A cidade precisa estar em `places` (no `data.js`) com latitude e longitude; cidade sem coordenada fica fora do mapa, mas continua no calendário.
 - **Cursos:** ficam na lista `products`, com o link de compra no Lab.
 - **Mentoria:** quando tiver o link do Choreo Journey no Lab, coloque em `mentoring.url`.
 

@@ -21,7 +21,7 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/anybody-normal-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/newsreader-normal-latin.woff2" crossorigin>
   <link rel="preload" as="image" href="img/hero-duo-800.webp" imagesrcset="img/hero-duo-480.webp 480w, img/hero-duo-800.webp 800w, img/hero-duo-1280.webp 1280w" imagesizes="(max-width: 960px) 76vw, 420px" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=20261127-10">
+  <link rel="stylesheet" href="styles.css?v=20261127-11">
   <script>
     (function () {
       var d = document.documentElement, done = function () { d.classList.add("is-ready"); };
@@ -225,14 +225,47 @@
 
     <!-- ABOUT -->
     <section class="section about" id="about" data-tone="sand">
-      <div class="wrap about-top">
-        <h2 class="statement" data-i18n="about.title">Partners on stage since 2018, and in the studios of Campinas long before that.</h2>
-        <figure class="about-photo unveil">
-          <img src="img/about-kick-800.webp" srcset="img/about-kick-480.webp 480w, img/about-kick-800.webp 800w, img/about-kick-1280.webp 1280w" sizes="(max-width: 800px) 100vw, 40vw" alt="Nina and Matheus dancing in the studio" loading="lazy" decoding="async" width="1280" height="855">
-        </figure>
-        <div class="about-text">
-          <p data-i18n="about.p1">Their dance spans Zouk, Lambada and Forró, built on years of Classical and Contemporary Ballet, Jazz and Hip-Hop. That mix shapes the way they teach.</p>
-          <p data-i18n="about.p2">At home they direct Barracão da Dança, a community of more than 320 students in Campinas.</p>
+      <div class="story" id="story">
+        <div class="story-sticky">
+          <div class="story-track" id="story-track">
+            <article class="chapter chapter--intro">
+              <h2 class="statement" data-i18n="about.title">Partners on stage since 2018, and in the studios of Campinas long before that.</h2>
+              <p class="story-hint"><span data-i18n="story.hint">Scroll to follow the story</span><i aria-hidden="true"></i></p>
+            </article>
+            <article class="chapter">
+              <p class="chapter-mark" aria-hidden="true">Campinas</p>
+              <figure class="chapter-photo"><img src="img/duo-sitting-800.webp" srcset="img/duo-sitting-480.webp 480w, img/duo-sitting-800.webp 800w, img/duo-sitting-1280.webp 1280w" sizes="(max-width: 900px) 80vw, 420px" alt="Nina and Matheus in the studio" loading="lazy" decoding="async" width="6055" height="7569"></figure>
+              <div class="chapter-text">
+                <h3 data-i18n="story.c1.title">Where it all started</h3>
+                <p data-i18n="about.p1">Their dance spans Zouk, Lambada and Forró, built on years of Classical and Contemporary Ballet, Jazz and Hip-Hop. That mix shapes the way they teach.</p>
+              </div>
+            </article>
+            <article class="chapter">
+              <p class="chapter-mark" aria-hidden="true">2018</p>
+              <figure class="chapter-photo"><img src="img/about-kick-800.webp" srcset="img/about-kick-480.webp 480w, img/about-kick-800.webp 800w, img/about-kick-1280.webp 1280w" sizes="(max-width: 900px) 80vw, 420px" alt="Nina and Matheus dancing outdoors" loading="lazy" decoding="async" width="6336" height="9504"></figure>
+              <div class="chapter-text">
+                <h3 data-i18n="story.c2.title">Partners on stage</h3>
+                <p data-i18n="story.c2.text">Their official partnership began in 2018. Since then, every class, choreography and show has been built by the two of them together.</p>
+              </div>
+            </article>
+            <article class="chapter">
+              <p class="chapter-mark" aria-hidden="true">20+</p>
+              <figure class="chapter-photo"><img src="img/duo-buildings-800.webp" srcset="img/duo-buildings-480.webp 480w, img/duo-buildings-800.webp 800w, img/duo-buildings-1280.webp 1280w" sizes="(max-width: 900px) 80vw, 420px" alt="Nina and Matheus in front of city buildings" loading="lazy" decoding="async" width="6336" height="7920"></figure>
+              <div class="chapter-text">
+                <h3 data-i18n="story.c3.title">Countries taught in</h3>
+                <p data-i18n="story.c3.text">From Rio to Taipei, from Miami to Katowice: they teach and perform at the biggest Zouk and Lambada congresses in the world.</p>
+              </div>
+            </article>
+            <article class="chapter">
+              <p class="chapter-mark" aria-hidden="true">320+</p>
+              <figure class="chapter-photo"><img src="img/duo-bw-800.webp" srcset="img/duo-bw-480.webp 480w, img/duo-bw-800.webp 800w, img/duo-bw-1280.webp 1280w" sizes="(max-width: 900px) 80vw, 420px" alt="Nina and Matheus in black and white" loading="lazy" decoding="async" width="4000" height="5000"></figure>
+              <div class="chapter-text">
+                <h3>Barracão da Dança</h3>
+                <p data-i18n="about.p2">At home they direct Barracão da Dança, a community of more than 320 students in Campinas.</p>
+              </div>
+            </article>
+          </div>
+          <div class="story-progress" aria-hidden="true"><span id="story-bar"></span></div>
         </div>
       </div>
 
@@ -267,28 +300,34 @@
         <header class="section-head">
           <h2 data-i18n="work.title">In the studio, on stage, behind the decks and at the judges' table</h2>
         </header>
-        <ul class="panels" id="panels">
-          <li class="panel is-active" tabindex="0">
-            <img src="img/duo-denim-800.webp" srcset="img/duo-denim-480.webp 480w, img/duo-denim-800.webp 800w, img/duo-denim-1280.webp 1280w" sizes="(max-width: 800px) 100vw, 50vw" alt="" loading="lazy" decoding="async">
-            <span class="panel-label" aria-hidden="true" data-i18n="work.classes">Classes</span>
-            <div class="panel-body"><h3 data-i18n="work.classes">Classes</h3><p data-i18n="work.classes.text">Brazilian Zouk for all levels, Lady &amp; Man Style and performance training.</p></div>
+        <ul class="skills" id="skills">
+          <li class="skill" data-img="0" tabindex="0">
+            <img class="skill-thumb" src="img/duo-denim-480.webp" alt="" loading="lazy" decoding="async">
+            <span class="skill-word" data-i18n="work.classes">Classes</span>
+            <span class="skill-text" data-i18n="work.classes.text">Brazilian Zouk for all levels, Lady &amp; Man Style and performance training.</span>
           </li>
-          <li class="panel" tabindex="0">
-            <img src="img/duo-buildings-800.webp" srcset="img/duo-buildings-480.webp 480w, img/duo-buildings-800.webp 800w, img/duo-buildings-1280.webp 1280w" sizes="(max-width: 800px) 100vw, 50vw" alt="" loading="lazy" decoding="async">
-            <span class="panel-label" aria-hidden="true" data-i18n="work.shows">Performances</span>
-            <div class="panel-body"><h3 data-i18n="work.shows">Performances</h3><p data-i18n="work.shows.text">Traditional Zouk, Lambada and lyrical choreographies, weddings included.</p></div>
+          <li class="skill" data-img="1" tabindex="0">
+            <img class="skill-thumb" src="img/hero-duo-480.webp" alt="" loading="lazy" decoding="async">
+            <span class="skill-word" data-i18n="work.shows">Performances</span>
+            <span class="skill-text" data-i18n="work.shows.text">Traditional Zouk, Lambada and lyrical choreographies, weddings included.</span>
           </li>
-          <li class="panel" tabindex="0">
-            <img src="img/dj-blue-800.webp" srcset="img/dj-blue-480.webp 480w, img/dj-blue-800.webp 800w, img/dj-blue-1280.webp 1280w" sizes="(max-width: 800px) 100vw, 50vw" alt="" loading="lazy" decoding="async">
-            <span class="panel-label" aria-hidden="true" data-i18n="work.dj">DJ sets</span>
-            <div class="panel-body"><h3 data-i18n="work.dj">DJ sets</h3><p data-i18n="work.dj.text">Curated Zouk sets and live mixing for international events.</p></div>
+          <li class="skill" data-img="2" tabindex="0">
+            <img class="skill-thumb" src="img/dj-blue-480.webp" alt="" loading="lazy" decoding="async">
+            <span class="skill-word" data-i18n="work.dj">DJ sets</span>
+            <span class="skill-text" data-i18n="work.dj.text">Curated Zouk sets and live mixing for international events.</span>
           </li>
-          <li class="panel" tabindex="0">
-            <img src="img/matheus-tank-800.webp" srcset="img/matheus-tank-480.webp 480w, img/matheus-tank-800.webp 800w, img/matheus-tank-1280.webp 1280w" sizes="(max-width: 800px) 100vw, 50vw" alt="" loading="lazy" decoding="async">
-            <span class="panel-label" aria-hidden="true" data-i18n="work.judging">Judging</span>
-            <div class="panel-body"><h3 data-i18n="work.judging">Judging</h3><p data-i18n="work.judging.text">Official BZDC judges, and competition champions themselves.</p></div>
+          <li class="skill" data-img="3" tabindex="0">
+            <img class="skill-thumb" src="img/matheus-tank-480.webp" alt="" loading="lazy" decoding="async">
+            <span class="skill-word" data-i18n="work.judging">Judging</span>
+            <span class="skill-text" data-i18n="work.judging.text">Official BZDC judges, and competition champions themselves.</span>
           </li>
         </ul>
+      </div>
+      <div class="skill-float" id="skill-float" aria-hidden="true">
+        <img src="img/duo-denim-800.webp" alt="" loading="lazy" decoding="async">
+        <img src="img/hero-duo-800.webp" alt="" loading="lazy" decoding="async">
+        <img src="img/dj-blue-800.webp" alt="" loading="lazy" decoding="async">
+        <img src="img/matheus-tank-800.webp" alt="" loading="lazy" decoding="async">
       </div>
     </section>
 
@@ -309,6 +348,22 @@
         </header>
 
         <p class="next-stop" id="next-stop" hidden></p>
+
+        <div class="tour-map" id="tour-map">
+          <div class="tour-map-canvas">
+            <div class="tour-map-dots" aria-hidden="true"></div>
+            <svg class="tour-map-svg" id="tour-map-svg" viewBox="0 0 1000 372" role="group" aria-label="Tour map" data-i18n-attr="aria-label:map.label"></svg>
+          </div>
+          <div class="tour-map-card" id="tour-map-card" role="dialog" hidden></div>
+          <div class="tour-map-foot">
+            <ul class="tour-map-legend">
+              <li><i class="lg lg-next"></i><span data-i18n="map.next">Next events</span></li>
+              <li><i class="lg lg-past"></i><span data-i18n="map.past">Stages we've taught on</span></li>
+              <li><i class="lg lg-home"></i><span data-i18n="map.home">Home: Campinas</span></li>
+            </ul>
+            <p class="tour-map-count"><strong>20+</strong> <span data-i18n="map.countries">countries and counting</span></p>
+          </div>
+        </div>
 
         <div class="cal-controls">
           <div class="cal-index" id="cal-index" role="group" aria-label="Months"></div>
@@ -387,8 +442,8 @@
     </div>
   </footer>
 
-  <script src="data.js?v=20261127-10"></script>
-  <script src="i18n.js?v=20261127-10"></script>
-  <script src="main.js?v=20261127-10"></script>
+  <script src="data.js?v=20261127-11"></script>
+  <script src="i18n.js?v=20261127-11"></script>
+  <script src="main.js?v=20261127-11"></script>
 </body>
 </html>
