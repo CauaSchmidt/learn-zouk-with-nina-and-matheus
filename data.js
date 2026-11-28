@@ -49,7 +49,7 @@ window.SITE = {
       },
       price: "US$ 79",
       url: "https://lab.dance/n&m/product/cmbmrevq60004rsu91t1i9d0l?lid=cm6o3o8ve004n9xkl8kbho4pj",
-      image: "img/classes-480.webp"
+      image: "img/duo-sitting-480.webp"
     },
     {
       title: "Choreo Journey 1",
@@ -61,7 +61,7 @@ window.SITE = {
       },
       price: "US$ 60",
       url: "https://lab.dance/n&m/product/cmluueei002mnivq8itm6hfc2?lid=cm6o3o8ve004n9xkl8kbho4pj",
-      image: "img/choreo-480.webp"
+      image: "img/duo-bw-480.webp"
     }
   ],
 
