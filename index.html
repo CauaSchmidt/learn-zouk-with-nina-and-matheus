@@ -21,7 +21,7 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/anybody-normal-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/newsreader-normal-latin.woff2" crossorigin>
   <link rel="preload" as="image" href="img/hero-duo-800.webp" imagesrcset="img/hero-duo-480.webp 480w, img/hero-duo-800.webp 800w, img/hero-duo-1280.webp 1280w" imagesizes="(max-width: 960px) 76vw, 420px" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=20261127-8">
+  <link rel="stylesheet" href="styles.css?v=20261127-9">
   <script>
     (function () {
       var d = document.documentElement, done = function () { d.classList.add("is-ready"); };
@@ -340,21 +340,25 @@
     <section class="section contact" id="contact" data-tone="jade">
       <div class="wrap">
         <h2 class="contact-title" data-fit data-i18n="contact.title"><span>Let's</span> <span>dance</span></h2>
-        <figure class="contact-photo unveil">
-          <img src="img/contact-street-800.webp" srcset="img/contact-street-480.webp 480w, img/contact-street-800.webp 800w, img/contact-street-1280.webp 1280w" sizes="(max-width: 1320px) 100vw, 1240px" alt="Nina and Matheus on a street in Europe" loading="lazy" decoding="async" width="4000" height="5000">
-        </figure>
-        <div class="contact-grid">
-          <p class="contact-lead" data-i18n="contact.lead">Questions about classes, private lessons or bringing us to your event? Send a message and we'll reply.</p>
-          <div class="actions">
-            <a class="btn" data-wa="wa.hello" data-i18n="contact.wa">Message us on WhatsApp</a>
-            <a class="btn btn-ghost" href="mailto:ninaandmatheus@gmail.com" data-i18n="contact.email">Send an email</a>
+        <div class="contact-body">
+          <div class="contact-main">
+            <div class="contact-grid">
+              <p class="contact-lead" data-i18n="contact.lead">Questions about classes, private lessons or bringing us to your event? Send a message and we'll reply.</p>
+              <div class="actions">
+                <a class="btn" data-wa="wa.hello" data-i18n="contact.wa">Message us on WhatsApp</a>
+                <a class="btn btn-ghost" href="mailto:ninaandmatheus@gmail.com" data-i18n="contact.email">Send an email</a>
+              </div>
+            </div>
+            <dl class="contact-details">
+              <div><dt>WhatsApp</dt><dd><a data-wa="wa.hello">+55 19 99295-5198</a></dd></div>
+              <div><dt data-i18n="contact.emailLabel">Email</dt><dd><a href="mailto:ninaandmatheus@gmail.com">ninaandmatheus@gmail.com</a></dd></div>
+              <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/ninaandmatheus" target="_blank" rel="noopener">@ninaandmatheus</a></dd></div>
+            </dl>
           </div>
+          <figure class="contact-photo unveil">
+            <img src="img/contact-street-800.webp" srcset="img/contact-street-480.webp 480w, img/contact-street-800.webp 800w, img/contact-street-1280.webp 1280w" sizes="(max-width: 800px) 100vw, 40vw" alt="Nina and Matheus on a street in Europe" loading="lazy" decoding="async" width="4000" height="5000">
+          </figure>
         </div>
-        <dl class="contact-details">
-          <div><dt>WhatsApp</dt><dd><a data-wa="wa.hello">+55 19 99295-5198</a></dd></div>
-          <div><dt data-i18n="contact.emailLabel">Email</dt><dd><a href="mailto:ninaandmatheus@gmail.com">ninaandmatheus@gmail.com</a></dd></div>
-          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/ninaandmatheus" target="_blank" rel="noopener">@ninaandmatheus</a></dd></div>
-        </dl>
       </div>
     </section>
   </main>
@@ -383,8 +387,8 @@
     </div>
   </footer>
 
-  <script src="data.js?v=20261127-8"></script>
-  <script src="i18n.js?v=20261127-8"></script>
-  <script src="main.js?v=20261127-8"></script>
+  <script src="data.js?v=20261127-9"></script>
+  <script src="i18n.js?v=20261127-9"></script>
+  <script src="main.js?v=20261127-9"></script>
 </body>
 </html>
